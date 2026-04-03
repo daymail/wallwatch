@@ -1,5 +1,8 @@
-#include "imgproc.h"
 #include <opencv2/opencv.hpp>
+#include "wsmeans.h"
+#include "imgproc.h"
+#include "celebi.h"
+#include "wu.h"
 
 namespace wallwatch{
 

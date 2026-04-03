@@ -46,3 +46,20 @@ wallwatch_module(quantize_lib
         quantize
         ${OpenCV_INCLUDE_DIRS}
 )
+
+wallwatch_module(variants_lib
+    SOURCES
+        scheme/variants/scheme_content.cc
+        scheme/variants/scheme_expressive.cc
+        scheme/variants/scheme_fidelity.cc
+        scheme/variants/scheme_fruit_salad.cc
+        scheme/variants/scheme_monochrome.cc
+        scheme/variants/scheme_neutral.cc
+        scheme/variants/scheme_rainbow.cc
+        scheme/variants/scheme_tonal_spot.cc
+        scheme/variants/scheme_vibrant.cc
+    LIBRARIES
+        scheme_lib
+    INCLUDES
+        scheme/variants
+)

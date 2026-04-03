@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-#include "cpp/scheme/scheme_expressive.h"
+#include "scheme_expressive.h"
 
 #include <vector>
+#include "../../m3/hct/hct.h"
+#include "../dynamic/dynamicscheme.h"
+#include "../dynamic/variants.h"
+#include "../tone.h"
 
-#include "cpp/cam/hct.h"
-#include "cpp/dynamiccolor/dynamic_scheme.h"
-#include "cpp/dynamiccolor/variant.h"
-#include "cpp/palettes/tones.h"
-
-namespace material_color_utilities {
-
+namespace wallwatch{
+using namespace material_color_utilities;
 const std::vector<double> kHues = {0, 21, 51, 121, 151, 191, 271, 321, 360};
 
 const std::vector<double> kSecondaryRotations = {45, 95, 45, 20, 45,

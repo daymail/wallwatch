@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-#include "cpp/scheme/scheme_fidelity.h"
+#include "scheme_fidelity.h"
 
 #include <cmath>
 
-#include "cpp/cam/hct.h"
-#include "cpp/dislike/dislike.h"
-#include "cpp/dynamiccolor/dynamic_scheme.h"
-#include "cpp/dynamiccolor/variant.h"
-#include "cpp/palettes/tones.h"
-#include "cpp/temperature/temperature_cache.h"
 
-namespace material_color_utilities {
+#include "../../m3/hct/hct.h"
+#include "../dislike/dislike.h"
+#include "../dynamic/dynamicscheme.h"
+#include "../dynamic/variants.h"
+#include "../tone.h"
+#include "../../colorspace/temperature/temperature.h"
 
+namespace wallwatch{
+using namespace material_color_utilities;
 SchemeFidelity::SchemeFidelity(Hct set_source_color_hct, bool set_is_dark,
                                double set_contrast_level)
     : DynamicScheme(

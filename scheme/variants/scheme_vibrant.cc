@@ -22,7 +22,8 @@
 #include "../dynamic/variants.h"
 #include "../tone.h"
 
-namespace material_color_utilities {
+namespace wallwatch{
+using namespace material_color_utilities;
 
 const std::vector<double> kHues = {0, 41, 61, 101, 131, 181, 251, 301, 360};
 

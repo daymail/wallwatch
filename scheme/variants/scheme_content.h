@@ -17,11 +17,11 @@
 #ifndef CPP_SCHEME_SCHEME_CONTENT_H_
 #define CPP_SCHEME_SCHEME_CONTENT_H_
 
-#include "cpp/cam/hct.h"
-#include "cpp/dynamiccolor/dynamic_scheme.h"
 
-namespace material_color_utilities {
-
+#include "../../m3/hct/hct.h"
+#include "../dynamic/dynamicscheme.h"
+namespace wallwatch{
+using namespace material_color_utilities;
 struct SchemeContent : public DynamicScheme {
   SchemeContent(Hct set_source_color_hct, bool set_is_dark,
                 double set_contrast_level);

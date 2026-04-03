@@ -65,7 +65,7 @@ std::vector<Argb> RankedSuggestions(const std::map<Argb, uint32_t>& argb_to_popu
         for(auto entry : scored_hcts){
             HCT hct = entry.first;
             auto duplicate_hue = std::find_if(chosen_colors.begin(), chosen_colors.end(), [&hct, difference_degrees](HCT chosen_hct){
-                    return DiffDegrees(hct.get_hue(), chosen_hct.get_hue() < difference_degrees);
+                    return DiffDegrees(hct.get_hue(), chosen_hct.get_hue()) < difference_degrees;
             });
             if(duplicate_hue == chosen_colors.end()){
                 chosen_colors.push_back(hct);

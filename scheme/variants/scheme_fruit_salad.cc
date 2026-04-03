@@ -18,10 +18,10 @@
 
 #include "../../m3/hct/hct.h"
 #include "../dynamic/dynamicscheme.h"
-#include "../../scheme/dynamic/variants.h"
-#include "../../scheme/tone.h"
-
-namespace material_color_utilities{
+#include "../dynamic/variants.h"
+#include "../tone.h"
+namespace wallwatch{
+using namespace material_color_utilities;
 
 using wallwatch::TonalPalette;
 using wallwatch::DynamicScheme;

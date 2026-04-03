@@ -20,7 +20,8 @@
 #include "../../m3/hct/hct.h"
 #include "../dynamic/dynamicscheme.h"
 
-namespace material_color_utilities {
+namespace wallwatch{
+using namespace material_color_utilities;
 
 struct SchemeVibrant : public DynamicScheme {
   SchemeVibrant(Hct source_color_hct, bool is_dark, double contrast_level);

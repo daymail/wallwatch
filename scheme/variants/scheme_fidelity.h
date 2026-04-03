@@ -17,11 +17,11 @@
 #ifndef CPP_SCHEME_SCHEME_FIDELITY_H_
 #define CPP_SCHEME_SCHEME_FIDELITY_H_
 
-#include "cpp/cam/hct.h"
-#include "cpp/dynamiccolor/dynamic_scheme.h"
+#include "../dynamic/dynamicscheme.h"
+#include "../../m3/hct/hct.h"
 
-namespace material_color_utilities {
-
+namespace wallwatch{
+using namespace material_color_utilities;
 struct SchemeFidelity : public DynamicScheme {
   SchemeFidelity(Hct set_source_color_hct, bool set_is_dark,
                  double set_contrast_level);

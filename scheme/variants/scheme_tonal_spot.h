@@ -17,11 +17,11 @@
 #ifndef CPP_SCHEME_SCHEME_TONAL_SPOT_H_
 #define CPP_SCHEME_SCHEME_TONAL_SPOT_H_
 
-#include "cpp/cam/hct.h"
-#include "cpp/dynamiccolor/dynamic_scheme.h"
+#include "../../m3/hct/hct.h"
+#include "../dynamic/dynamicscheme.h"
 
-namespace material_color_utilities {
-
+namespace wallwatch{
+using namespace material_color_utilities;
 struct SchemeTonalSpot : public DynamicScheme {
   SchemeTonalSpot(Hct source_color_hct, bool is_dark, double contrast_level);
   SchemeTonalSpot(Hct source_color_hct, bool is_dark);

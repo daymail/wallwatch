@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-#include "cpp/scheme/scheme_monochrome.h"
+#include "scheme_monochrome.h"
 
-#include "cpp/cam/hct.h"
-#include "cpp/dynamiccolor/dynamic_scheme.h"
-#include "cpp/dynamiccolor/variant.h"
-#include "cpp/palettes/tones.h"
+#include "../dynamic/dynamicscheme.h"
+#include "../../m3/hct/hct.h"
+#include "../dynamic/variants.h"
+#include "../tone.h"
 
-namespace material_color_utilities {
+namespace wallwatch{
+using namespace material_color_utilities;
 
 SchemeMonochrome::SchemeMonochrome(Hct set_source_color_hct, bool set_is_dark,
                                    double set_contrast_level)

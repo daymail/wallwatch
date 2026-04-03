@@ -15,14 +15,16 @@ add_executable(wallwatch
     wallwatch.cpp
     filewatcher.cpp
     filewatcher.h
+    themer.h
 )
 
 set_target_properties(wallwatch PROPERTIES AUTOMOC ON)
 
-target_link_libraries(wallwatch
+target_link_libraries(wallwatch PRIVATE
     quantize_lib
     scheme_lib
     m3_lib
+    variants_lib
     ${OpenCV_LIBRARIES}
     Qt::Core
 )
