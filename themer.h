@@ -23,7 +23,6 @@ public:
 private:
     std::unique_ptr<DynamicScheme> m_theme;
 
-    // Helper to convert ARGB to "#RRGGBB"
     QString hex(uint32_t argb) const {
         return QString("#%1").arg(argb & 0xFFFFFF, 6, 16, QChar('0')).toUpper();
     }
@@ -36,7 +35,7 @@ private:
 
         QJsonObject colors;
 
-        // --- 1. CORE PALETTE KEYS (Source colors for the scheme) ---
+        // 1. CORE PALETTE KEYS (Source colors for the scheme)
         colors["primaryPaletteKeyColor"] = hex(m_theme->GetPrimaryPaletteKeyColor());
         colors["secondaryPaletteKeyColor"] = hex(m_theme->GetSecondaryPaletteKeyColor());
         colors["tertiaryPaletteKeyColor"] = hex(m_theme->GetTertiaryPaletteKeyColor());
@@ -64,7 +63,7 @@ private:
         colors["inverseSurface"] = hex(m_theme->GetInverseSurface());
         colors["inverseOnSurface"] = hex(m_theme->GetInverseOnSurface());
 
-        // --- 3. ACCENT ROLES (Primary, Secondary, Tertiary) ---
+        // 3. ACCENT ROLES (Primary, Secondary, Tertiary)
         colors["primary"] = hex(m_theme->GetPrimary());
         colors["onPrimary"] = hex(m_theme->GetOnPrimary());
         colors["primaryContainer"] = hex(m_theme->GetPrimaryContainer());
@@ -81,13 +80,13 @@ private:
         colors["tertiaryContainer"] = hex(m_theme->GetTertiaryContainer());
         colors["onTertiaryContainer"] = hex(m_theme->GetOnTertiaryContainer());
 
-        // --- 4. ERROR ROLES ---
+        // 4. ERROR ROLES
         colors["error"] = hex(m_theme->GetError());
         colors["onError"] = hex(m_theme->GetOnError());
         colors["errorContainer"] = hex(m_theme->GetErrorContainer());
         colors["onErrorContainer"] = hex(m_theme->GetOnErrorContainer());
 
-        // --- 5. FIXED ROLES (Colors that stay consistent between light/dark) ---
+        // 5. FIXED ROLES
         colors["primaryFixed"] = hex(m_theme->GetPrimaryFixed());
         colors["primaryFixedDim"] = hex(m_theme->GetPrimaryFixedDim());
         colors["onPrimaryFixed"] = hex(m_theme->GetOnPrimaryFixed());
@@ -103,14 +102,13 @@ private:
         colors["onTertiaryFixed"] = hex(m_theme->GetOnTertiaryFixed());
         colors["onTertiaryFixedVariant"] = hex(m_theme->GetOnTertiaryFixedVariant());
 
-        // --- 6. UTILITY ROLES ---
+        // 6. UTILITY ROLES
         colors["outline"] = hex(m_theme->GetOutline());
         colors["outlineVariant"] = hex(m_theme->GetOutlineVariant());
         colors["shadow"] = hex(m_theme->GetShadow());
         colors["scrim"] = hex(m_theme->GetScrim());
         colors["surfaceTint"] = hex(m_theme->GetSurfaceTint());
 
-        // Final JSON Document construction
         QJsonObject root;
         root["colors"] = colors;
 

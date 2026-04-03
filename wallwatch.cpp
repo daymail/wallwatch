@@ -3,17 +3,7 @@
 #include <QObject>
 #include <QString>
 
-#include "themer.h"
-#include "filewatcher.h"
-#include "m3/score/score.h"
-#include "m3/hct/hct.h"
-#include "quantize/imgproc.h"
-#include "quantize/celebi.h"
-#include "colorspace/color_types.h"
-#include "colorspace/colorspace.h"
-#include "scheme/dynamic/dynamicscheme.h"
-#include "scheme/variants/scheme_tonal_spot.h"
-
+#include "wallwatch.h"
 using namespace wallwatch;
 
 int main(int argc, char *argv[]){
@@ -33,7 +23,6 @@ int main(int argc, char *argv[]){
     std::vector<Argb> pixels;
     if(info.isVideo){
         pixels = wallwatch::ExtractPixels(path);
-        std::cout << "used MEEEEEE" << std::endl;
     }else{pixels = wallwatch::ImageToPixels(path);}
 
     QuantizerResult pixelColors = QuantizeCelebi(pixels, 128);
@@ -46,7 +35,7 @@ int main(int argc, char *argv[]){
 
         SchemeTonalSpot scheme(source, isDark, 0.0);
         myThemer->updateAndSave(scheme);
-        std::cout << "Theme applied successfully from: " << path << std::endl;
+        std::cout << "Theme applied from: " << path << std::endl;
     }
 
     return 0;
