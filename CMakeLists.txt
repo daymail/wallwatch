@@ -1,56 +1,39 @@
 cmake_minimum_required(VERSION 3.16..3.28)
 project("Wallwatch" VERSION 1.0 LANGUAGES CXX)
+include(fn.cmake)
+include(libs.cmake)
+
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs videoio)
+qt_standard_project_setup(REQUIRES 6.9)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/colorspace)
-
-add_library(m3_lib STATIC
-    m3/hct/hct.cc
-    m3/hct/cam.cc
-    m3/hct/hct_solver.cc
-    m3/hct/viewing_conditions.cc
-    m3/utils/utils.cc
-    m3/contrast/contrast.cc
-    m3/score/score.cpp
+add_executable(wallwatch
+    wallwatch.cpp
+    filewatcher.cpp
+    filewatcher.h
 )
 
-add_library(scheme_lib STATIC
-    colorspace/colorspace.cpp
-    colorspace/blend.cpp
-    colorspace/lab.cpp
-    colorspace/temperature/temperature.cpp
-    scheme/tone.cpp
-    scheme/dislike/dislike.cpp
-    scheme/dynamic/dynamiccolor.cpp
-    scheme/dynamic/dynamicscheme.cpp
-    scheme/dynamic/m3_dynamic.cpp
-)
+set_target_properties(wallwatch PROPERTIES AUTOMOC ON)
 
-add_library(quantize_lib STATIC
-    quantize/wu.cpp
-    quantize/wsmeans.cpp
-    quantize/celebi.cpp
-)
-
-add_executable(wallwatch wallwatch.cpp)
-target_link_libraries(wallwatch PRIVATE
-    m3_lib
-    scheme_lib
+target_link_libraries(wallwatch
     quantize_lib
+    scheme_lib
+    m3_lib
+    ${OpenCV_LIBRARIES}
+    Qt::Core
 )
 
 target_include_directories(wallwatch PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/colorspace
-    ${CMAKE_CURRENT_SOURCE_DIR}/scheme
-    ${CMAKE_CURRENT_SOURCE_DIR}/m3/hct
-    ${CMAKE_CURRENT_SOURCE_DIR}/m3/score
-    ${CMAKE_CURRENT_SOURCE_DIR}m3/utils
-    ${CMAKE_CURRENT_SOURCE_DIR}m3/contrast
-    ${CMAKE_CURRENT_SOURCE_DIR}/scheme/variants
-    ${CMAKE_CURRENT_SOURCE_DIR}/scheme/dislike
-    ${CMAKE_CURRENT_SOURCE_DIR}/scheme/dynamic
-    ${CMAKE_CURRENT_SOURCE_DIR}/quantize
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    colorspace
+    scheme
+    quantize
+    ${OpenCV_INCLUDE_DIRS}
 )
+target_link_libraries(quantize_lib PRIVATE ${OpenCV_LIBRARIES})
+target_include_directories(quantize_lib PRIVATE ${OpenCV_INCLUDE_DIRS})
+install(TARGETS wallwatch RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)

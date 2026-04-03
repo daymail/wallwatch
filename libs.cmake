@@ -1,0 +1,48 @@
+include(fn.cmake)
+
+wallwatch_module(m3_lib
+    SOURCES
+        m3/hct/hct.cc
+        m3/hct/cam.cc
+        m3/hct/hct_solver.cc
+        m3/hct/viewing_conditions.cc
+        m3/utils/utils.cc
+        m3/contrast/contrast.cc
+        m3/score/score.cpp
+    INCLUDES
+        m3/hct
+        m3/utils
+        m3/contrast
+        m3/score
+)
+
+wallwatch_module(scheme_lib
+    SOURCES
+        colorspace/colorspace.cpp
+        colorspace/blend.cpp
+        colorspace/lab.cpp
+        colorspace/temperature/temperature.cpp
+        scheme/tone.cpp
+        scheme/dislike/dislike.cpp
+        scheme/dynamic/dynamiccolor.cpp
+        scheme/dynamic/dynamicscheme.cpp
+        scheme/dynamic/m3_dynamic.cpp
+    LIBRARIES
+        m3_lib
+    INCLUDES
+        colorspace
+        scheme
+        scheme/dislike
+        scheme/dynamic
+)
+
+wallwatch_module(quantize_lib
+    SOURCES
+        quantize/wu.cpp
+        quantize/wsmeans.cpp
+        quantize/celebi.cpp
+        quantize/imgproc.cpp
+    INCLUDES
+        quantize
+        ${OpenCV_INCLUDE_DIRS}
+)
