@@ -1,18 +1,23 @@
 #include "filewatcher.h"
 #include <cstdlib>
-#include <iostream>
-namespace wallwatch {
 
+namespace wallwatch {
 WallWatch::WallWatch(QObject* parent) : QObject(parent), m_dir_is_valid(false) {
     const char* wallpath = std::getenv("WALL_DIR");
+    if(wallpath == nullptr || std::string(wallpath).empty()){
+        qWarning() << "Environment variable WALL_DIR not set";
+        m_dir_is_valid = false;
+        return;
+    }
     m_wallDir.setPath(QString::fromUtf8(wallpath));
-    if (!m_wallDir.exists()) {
-        if (!m_wallDir.mkpath(".")) {
-            qWarning() << "Failed to create wall-directory: " << m_wallDir.absolutePath();
+    if(!m_wallDir.exists()){
+        if(m_wallDir.path().isEmpty() || !m_wallDir.mkpath(".")){
+            qWarning() << "Invalid directory: " << m_wallDir.absolutePath();
             m_dir_is_valid = false;
             return;
         }
     }
+
     m_dir_is_valid = true;
     m_watcher = new QFileSystemWatcher(this);
     if (m_wallDir.exists()) {
