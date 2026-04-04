@@ -1,0 +1,974 @@
+[1/4] Automatic MOC and UIC for target wallwatch
+[2/3] Building CXX object CMakeFiles/wallwatch.dir/wallwatch.cpp.o
+FAILED: [code=1] CMakeFiles/wallwatch.dir/wallwatch.cpp.o 
+/usr/bin/c++ -DQT_CORE_LIB -DQT_NO_DEBUG -I/home/src/.config/quickshell/addons/wallwatch/build/wallwatch_autogen/include -I/home/src/.config/quickshell/addons/wallwatch -I/home/src/.config/quickshell/addons/wallwatch/colorspace -I/home/src/.config/quickshell/addons/wallwatch/scheme -I/home/src/.config/quickshell/addons/wallwatch/quantize -isystem /usr/include/opencv4 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -std=c++20 -mno-direct-extern-access -MD -MT CMakeFiles/wallwatch.dir/wallwatch.cpp.o -MF CMakeFiles/wallwatch.dir/wallwatch.cpp.o.d -o CMakeFiles/wallwatch.dir/wallwatch.cpp.o -c /home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp: In function ‘int main(int, char**)’:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:15: error: no match for ‘operator<<’ (operand types are ‘std::ostream’ {aka ‘std::basic_ostream<char>’} and ‘std::vector<unsigned int>’)
+   30 |     std::cout << ranked << std::endl;
+      |     ~~~~~~~~~ ^~ ~~~~~~
+      |          |       |
+      |          |       std::vector<unsigned int>
+      |          std::ostream {aka std::basic_ostream<char>}
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:15: note: there are 135 candidates
+   30 |     std::cout << ranked << std::endl;
+      |     ~~~~~~~~~~^~~~~~~~~
+In file included from /usr/include/c++/15.2.1/bits/unique_ptr.h:42,
+                 from /usr/include/c++/15.2.1/memory:80,
+                 from /usr/include/qt6/QtCore/qcontainertools_impl.h:21,
+                 from /usr/include/qt6/QtCore/qarraydataops.h:9,
+                 from /usr/include/qt6/QtCore/qarraydatapointer.h:7,
+                 from /usr/include/qt6/QtCore/qbytearray.h:12,
+                 from /usr/include/qt6/QtCore/qstringview.h:11,
+                 from /usr/include/qt6/QtCore/qchar.h:723,
+                 from /usr/include/qt6/QtCore/qstring.h:15,
+                 from /usr/include/qt6/QtCore/qcoreapplication.h:8,
+                 from /usr/include/qt6/QtCore/QCoreApplication:1,
+                 from /home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:1:
+/usr/include/c++/15.2.1/bits/ostream.h:116:7: note: candidate 1: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(__ostream_type& (*)(__ostream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  116 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:116:36: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘std::basic_ostream<char>::__ostream_type& (*)(std::basic_ostream<char>::__ostream_type&)’ {aka ‘std::basic_ostream<char>& (*)(std::basic_ostream<char>&)’}
+  116 |       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+      |                  ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:125:7: note: candidate 2: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(__ios_type& (*)(__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>; __ios_type = std::basic_ios<char>]’
+  125 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:125:32: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘std::basic_ostream<char>::__ios_type& (*)(std::basic_ostream<char>::__ios_type&)’ {aka ‘std::basic_ios<char>& (*)(std::basic_ios<char>&)’}
+  125 |       operator<<(__ios_type& (*__pf)(__ios_type&))
+      |                  ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:135:7: note: candidate 3: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  135 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:135:30: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘std::ios_base& (*)(std::ios_base&)’
+  135 |       operator<<(ios_base& (*__pf) (ios_base&))
+      |                  ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:174:7: note: candidate 4: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  174 |       operator<<(long __n)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:174:23: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘long int’
+  174 |       operator<<(long __n)
+      |                  ~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:178:7: note: candidate 5: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  178 |       operator<<(unsigned long __n)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:178:32: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘long unsigned int’
+  178 |       operator<<(unsigned long __n)
+      |                  ~~~~~~~~~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:182:7: note: candidate 6: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  182 |       operator<<(bool __n)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:182:23: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘bool’
+  182 |       operator<<(bool __n)
+      |                  ~~~~~^~~
+In file included from /usr/include/c++/15.2.1/ostream:294,
+                 from /usr/include/c++/15.2.1/istream:43,
+                 from /usr/include/c++/15.2.1/sstream:42,
+                 from /usr/include/c++/15.2.1/chrono:51,
+                 from /usr/include/qt6/QtCore/qobject.h:24,
+                 from /usr/include/qt6/QtCore/qabstracteventdispatcher.h:7,
+                 from /usr/include/qt6/QtCore/qbasictimer.h:8,
+                 from /usr/include/qt6/QtCore/qcoreevent.h:7,
+                 from /usr/include/qt6/QtCore/qcoreapplication.h:10:
+/usr/include/c++/15.2.1/bits/ostream.tcc:100:5: note: candidate 7: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char; _Traits = std::char_traits<char>]’
+  100 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.tcc:101:22: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘short int’
+  101 |     operator<<(short __n)
+      |                ~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:189:7: note: candidate 8: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  189 |       operator<<(unsigned short __n)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:189:33: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘short unsigned int’
+  189 |       operator<<(unsigned short __n)
+      |                  ~~~~~~~~~~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.tcc:114:5: note: candidate 9: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char; _Traits = std::char_traits<char>]’
+  114 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.tcc:115:20: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘int’
+  115 |     operator<<(int __n)
+      |                ~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:200:7: note: candidate 10: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  200 |       operator<<(unsigned int __n)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:200:31: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘unsigned int’
+  200 |       operator<<(unsigned int __n)
+      |                  ~~~~~~~~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:211:7: note: candidate 11: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  211 |       operator<<(long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:211:28: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘long long int’
+  211 |       operator<<(long long __n)
+      |                  ~~~~~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:215:7: note: candidate 12: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  215 |       operator<<(unsigned long long __n)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:215:37: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘long long unsigned int’
+  215 |       operator<<(unsigned long long __n)
+      |                  ~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:231:7: note: candidate 13: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  231 |       operator<<(double __f)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:231:25: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘double’
+  231 |       operator<<(double __f)
+      |                  ~~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:235:7: note: candidate 14: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  235 |       operator<<(float __f)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:235:24: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘float’
+  235 |       operator<<(float __f)
+      |                  ~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:243:7: note: candidate 15: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  243 |       operator<<(long double __f)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:243:30: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘long double’
+  243 |       operator<<(long double __f)
+      |                  ~~~~~~~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:301:7: note: candidate 16: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>]’
+  301 |       operator<<(const void* __p)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:301:30: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘const void*’
+  301 |       operator<<(const void* __p)
+      |                  ~~~~~~~~~~~~^~~
+/usr/include/c++/15.2.1/bits/ostream.h:306:7: note: candidate 17: ‘std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::nullptr_t) [with _CharT = char; _Traits = std::char_traits<char>; __ostream_type = std::basic_ostream<char>; std::nullptr_t = std::nullptr_t]’
+  306 |       operator<<(nullptr_t)
+      |       ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:306:18: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘std::nullptr_t’
+  306 |       operator<<(nullptr_t)
+      |                  ^~~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.tcc:128:5: note: candidate 18: ‘std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; __streambuf_type = std::basic_streambuf<char>]’
+  128 |     basic_ostream<_CharT, _Traits>::
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.tcc:129:34: note: no known conversion for argument 1 from ‘std::vector<unsigned int>’ to ‘std::basic_ostream<char>::__streambuf_type*’ {aka ‘std::basic_streambuf<char>*’}
+  129 |     operator<<(__streambuf_type* __sbin)
+      |                ~~~~~~~~~~~~~~~~~~^~~~~~
+In file included from /usr/include/qt6/QtCore/qmetatype.h:13,
+                 from /usr/include/qt6/QtCore/qobject.h:18:
+/usr/include/qt6/QtCore/qdatastream.h:253:39: note: candidate 19: ‘QDataStream& operator<<(QDataStream&, const QByteArray&)’
+  253 |     Q_CORE_EXPORT friend QDataStream &operator<<(QDataStream &out, const QByteArray &ba);
+      |                                       ^~~~~~~~
+/usr/include/qt6/QtCore/qbytearray.h:761:39: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  761 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QByteArray &);
+      |                                       ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:251:39: note: candidate 20: ‘QDataStream& operator<<(QDataStream&, const QString&)’
+  251 |     Q_CORE_EXPORT friend QDataStream &operator<<(QDataStream &out, const QString &str);
+      |                                       ^~~~~~~~
+/usr/include/qt6/QtCore/qstring.h:1595:39: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+ 1595 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QString &);
+      |                                       ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:554:28: note: candidate 21: ‘QDataStream& operator<<(QDataStream&, QChar)’
+  554 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &out, QChar chr);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:554:52: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  554 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &out, QChar chr);
+      |                                       ~~~~~~~~~~~~~^~~
+/usr/include/qt6/QtCore/qdatastream.h:700:21: note: candidate 22: ‘QDataStream& operator<<(QDataStream&, QKeyCombination)’
+  700 | inline QDataStream &operator<<(QDataStream &s, QKeyCombination combination)
+      |                     ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:700:45: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  700 | inline QDataStream &operator<<(QDataStream &s, QKeyCombination combination)
+      |                                ~~~~~~~~~~~~~^
+In file included from /usr/include/qt6/QtCore/qdebug.h:16,
+                 from /usr/include/qt6/QtCore/qvariant.h:13,
+                 from /usr/include/qt6/QtCore/qlocale.h:8,
+                 from /usr/include/qt6/QtCore/qcalendar.h:10,
+                 from /usr/include/qt6/QtCore/qdatetime.h:8,
+                 from /usr/include/qt6/QtCore/qdirlisting.h:14,
+                 from /usr/include/qt6/QtCore/qdir.h:10,
+                 from /usr/include/qt6/QtCore/QDir:1,
+                 from /home/src/.config/quickshell/addons/wallwatch/themer.h:5,
+                 from /home/src/.config/quickshell/addons/wallwatch/wallwatch.h:1,
+                 from /home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:6:
+/usr/include/qt6/QtCore/qtextstream.h:212:21: note: candidate 23: ‘QTextStream& operator<<(QTextStream&, QTextStreamFunction)’
+  212 | inline QTextStream &operator<<(QTextStream &s, QTextStreamFunction f)
+      |                     ^~~~~~~~
+/usr/include/qt6/QtCore/qtextstream.h:212:45: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QTextStream&’
+  212 | inline QTextStream &operator<<(QTextStream &s, QTextStreamFunction f)
+      |                                ~~~~~~~~~~~~~^
+/usr/include/qt6/QtCore/qtextstream.h:215:21: note: candidate 24: ‘QTextStream& operator<<(QTextStream&, QTextStreamManipulator)’
+  215 | inline QTextStream &operator<<(QTextStream &s, QTextStreamManipulator m)
+      |                     ^~~~~~~~
+/usr/include/qt6/QtCore/qtextstream.h:215:45: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QTextStream&’
+  215 | inline QTextStream &operator<<(QTextStream &s, QTextStreamManipulator m)
+      |                                ~~~~~~~~~~~~~^
+/usr/include/qt6/QtCore/qvariant.h:852:28: note: candidate 25: ‘QDataStream& operator<<(QDataStream&, const QVariant&)’
+  852 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &s, const QVariant &p);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qvariant.h:852:52: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  852 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &s, const QVariant &p);
+      |                                       ~~~~~~~~~~~~~^
+/usr/include/qt6/QtCore/qvariant.h:866:21: note: candidate 26: ‘QDataStream& operator<<(QDataStream&, QVariant::Type)’
+  866 | inline QDataStream &operator<<(QDataStream &s, const QVariant::Type p)
+      |                     ^~~~~~~~
+/usr/include/qt6/QtCore/qvariant.h:866:45: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  866 | inline QDataStream &operator<<(QDataStream &s, const QVariant::Type p)
+      |                                ~~~~~~~~~~~~~^
+/usr/include/qt6/QtCore/qlocale.h:1217:28: note: candidate 27: ‘QDataStream& operator<<(QDataStream&, const QLocale&)’
+ 1217 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QLocale &);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qlocale.h:1217:39: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+ 1217 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QLocale &);
+      |                                       ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:652:28: note: candidate 28: ‘QDataStream& operator<<(QDataStream&, QDate)’
+  652 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, QDate);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:215:50: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  215 |     friend Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, QDate);
+      |                                                  ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:654:28: note: candidate 29: ‘QDataStream& operator<<(QDataStream&, QTime)’
+  654 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, QTime);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:281:50: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  281 |     friend Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, QTime);
+      |                                                  ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:656:28: note: candidate 30: ‘QDataStream& operator<<(QDataStream&, const QDateTime&)’
+  656 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QDateTime &);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:641:50: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  641 |     friend Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QDateTime &);
+      |                                                  ^~~~~~~~~~~~~
+In file included from /usr/include/qt6/QtCore/qfileinfo.h:14,
+                 from /usr/include/qt6/QtCore/qdir.h:12:
+/usr/include/qt6/QtCore/qtimezone.h:260:28: note: candidate 31: ‘QDataStream& operator<<(QDataStream&, const QTimeZone&)’
+  260 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &ds, const QTimeZone &tz);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qtimezone.h:242:63: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  242 |     friend Q_CORE_EXPORT QDataStream &operator<<(QDataStream &ds, const QTimeZone &tz);
+      |                                                  ~~~~~~~~~~~~~^~
+In file included from /usr/include/qt6/QtCore/qcborvalue.h:9,
+                 from /usr/include/qt6/QtCore/qjsonvalue.h:8,
+                 from /usr/include/qt6/QtCore/qjsonobject.h:8,
+                 from /usr/include/qt6/QtCore/QJsonObject:1,
+                 from /home/src/.config/quickshell/addons/wallwatch/themer.h:7:
+/usr/include/qt6/QtCore/qcborcommon.h:106:28: note: candidate 32: ‘QDataStream& operator<<(QDataStream&, QCborSimpleType)’
+  106 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &ds, QCborSimpleType st);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qcborcommon.h:106:52: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  106 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &ds, QCborSimpleType st);
+      |                                       ~~~~~~~~~~~~~^~
+In file included from /usr/include/qt6/QtCore/qcborvalue.h:13:
+/usr/include/qt6/QtCore/qregularexpression.h:186:28: note: candidate 33: ‘QDataStream& operator<<(QDataStream&, const QRegularExpression&)’
+  186 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &out, const QRegularExpression &re);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qregularexpression.h:186:52: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  186 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &out, const QRegularExpression &re);
+      |                                       ~~~~~~~~~~~~~^~~
+In file included from /usr/include/qt6/QtCore/qcborvalue.h:17:
+/usr/include/qt6/QtCore/qurl.h:326:28: note: candidate 34: ‘QDataStream& operator<<(QDataStream&, const QUrl&)’
+  326 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QUrl &);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qurl.h:326:39: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  326 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QUrl &);
+      |                                       ^~~~~~~~~~~~~
+In file included from /usr/include/qt6/QtCore/qcborvalue.h:18:
+/usr/include/qt6/QtCore/quuid.h:341:28: note: candidate 35: ‘QDataStream& operator<<(QDataStream&, const QUuid&)’
+  341 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QUuid &);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/quuid.h:341:39: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  341 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QUuid &);
+      |                                       ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qcborvalue.h:622:28: note: candidate 36: ‘QDataStream& operator<<(QDataStream&, const QCborValue&)’
+  622 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QCborValue &);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qcborvalue.h:622:39: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  622 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QCborValue &);
+      |                                       ^~~~~~~~~~~~~
+In file included from /usr/include/qt6/QtCore/qjsonvalue.h:12:
+/usr/include/qt6/QtCore/qjsondocument.h:120:28: note: candidate 37: ‘QDataStream& operator<<(QDataStream&, const QJsonDocument&)’
+  120 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QJsonDocument &);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qjsondocument.h:120:39: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  120 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QJsonDocument &);
+      |                                       ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qjsonvalue.h:349:28: note: candidate 38: ‘QDataStream& operator<<(QDataStream&, const QJsonValue&)’
+  349 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QJsonValue &);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qjsonvalue.h:132:50: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  132 |     friend Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QJsonValue &);
+      |                                                  ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qjsonobject.h:414:28: note: candidate 39: ‘QDataStream& operator<<(QDataStream&, const QJsonObject&)’
+  414 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QJsonObject &);
+      |                            ^~~~~~~~
+/usr/include/qt6/QtCore/qjsonobject.h:414:39: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDataStream&’
+  414 | Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QJsonObject &);
+      |                                       ^~~~~~~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:523:21: note: candidate 40: ‘template<class Enum> QDataStream& operator<<(QDataStream&, QFlags<T>)’
+  523 | inline QDataStream &operator<<(QDataStream &s, QFlags<Enum> e)
+      |                     ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:523:21: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘QFlags<T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:537:1: note: candidate 41: ‘template<class T> std::enable_if_t<((bool)std::is_enum<_Tp>::value), QDataStream&> operator<<(QDataStream&, const T&)’
+  537 | operator<<(QDataStream &s, const T &t)
+      | ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:537:1: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:10: note:   cannot convert ‘std::cout’ (type ‘std::ostream’ {aka ‘std::basic_ostream<char>’}) to type ‘QDataStream&’
+   30 |     std::cout << ranked << std::endl;
+      |     ~~~~~^~~~
+/usr/include/qt6/QtCore/qdatastream.h:566:63: note: candidate 42: ‘template<class T> QDataStreamIfHasOStreamOperatorsContainer<QList<T>, T> operator<<(QDataStream&, const QList<T>&)’
+  566 | inline QDataStreamIfHasOStreamOperatorsContainer<QList<T>, T> operator<<(QDataStream &s, const QList<T> &v)
+      |                                                               ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:566:63: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QList<T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:578:62: note: candidate 43: ‘template<class T> QDataStreamIfHasOStreamOperatorsContainer<QSet<T>, T> operator<<(QDataStream&, const QSet<T>&)’
+  578 | inline QDataStreamIfHasOStreamOperatorsContainer<QSet<T>, T> operator<<(QDataStream &s, const QSet<T> &set)
+      |                                                              ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:578:62: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QSet<T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:591:73: note: candidate 44: ‘template<class Key, class T> QDataStreamIfHasOStreamOperatorsContainer<QHash<Key, T>, Key, T> operator<<(QDataStream&, const QHash<Key, T>&)’
+  591 | inline QDataStreamIfHasOStreamOperatorsContainer<QHash<Key, T>, Key, T> operator<<(QDataStream &s, const QHash<Key, T> &hash)
+      |                                                                         ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:591:73: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QHash<Key, T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:603:78: note: candidate 45: ‘template<class Key, class T> QDataStreamIfHasOStreamOperatorsContainer<QMultiHash<Key, T>, Key, T> operator<<(QDataStream&, const QMultiHash<Key, T>&)’
+  603 | inline QDataStreamIfHasOStreamOperatorsContainer<QMultiHash<Key, T>, Key, T> operator<<(QDataStream &s, const QMultiHash<Key, T> &hash)
+      |                                                                              ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:603:78: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QMultiHash<Key, T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:615:72: note: candidate 46: ‘template<class Key, class T> QDataStreamIfHasOStreamOperatorsContainer<QMap<Key, T>, Key, T> operator<<(QDataStream&, const QMap<Key, T>&)’
+  615 | inline QDataStreamIfHasOStreamOperatorsContainer<QMap<Key, T>, Key, T> operator<<(QDataStream &s, const QMap<Key, T> &map)
+      |                                                                        ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:615:72: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QMap<Key, T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:627:77: note: candidate 47: ‘template<class Key, class T> QDataStreamIfHasOStreamOperatorsContainer<QMultiMap<Key, T>, Key, T> operator<<(QDataStream&, const QMultiMap<Key, T>&)’
+  627 | inline QDataStreamIfHasOStreamOperatorsContainer<QMultiMap<Key, T>, Key, T> operator<<(QDataStream &s, const QMultiMap<Key, T> &map)
+      |                                                                             ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:627:77: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QMultiMap<Key, T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:640:49: note: candidate 48: ‘template<class T1, class T2> QDataStreamIfHasOStreamOperators<T1, T2> operator<<(QDataStream&, const std::pair<_T1, _T2>&)’
+  640 | inline QDataStreamIfHasOStreamOperators<T1, T2> operator<<(QDataStream& s, const std::pair<T1, T2> &p)
+      |                                                 ^~~~~~~~
+/usr/include/qt6/QtCore/qdatastream.h:640:49: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::pair<_T1, _T2>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:410:53: note: candidate 49: ‘template<class T> QDebugIfHasDebugStreamContainer<QList<T>, T> operator<<(QDebug, const QList<T>&)’
+  410 | inline QDebugIfHasDebugStreamContainer<QList<T>, T> operator<<(QDebug debug, const QList<T> &vec)
+      |                                                     ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:410:53: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QList<T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:416:34: note: candidate 50: ‘template<class T, long long int P> QDebugIfHasDebugStream<T> operator<<(QDebug, const QVarLengthArray<T, Prealloc>&)’
+  416 | inline QDebugIfHasDebugStream<T> operator<<(QDebug debug, const QVarLengthArray<T, P> &vec)
+      |                                  ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:416:34: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QVarLengthArray<T, Prealloc>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:422:34: note: candidate 51: ‘template<class T, class Alloc> QDebugIfHasDebugStream<T> operator<<(QDebug, const std::vector<_Tp, _Alloc>&)’
+  422 | inline QDebugIfHasDebugStream<T> operator<<(QDebug debug, const std::vector<T, Alloc> &vec)
+      |                                  ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:422:34: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:10: note:   cannot convert ‘std::cout’ (type ‘std::ostream’ {aka ‘std::basic_ostream<char>’}) to type ‘QDebug’
+   30 |     std::cout << ranked << std::endl;
+      |     ~~~~~^~~~
+/usr/include/qt6/QtCore/qdebug.h:428:34: note: candidate 52: ‘template<class T, long unsigned int N> QDebugIfHasDebugStream<T> operator<<(QDebug, const std::array<_Tp, _Nm>&)’
+  428 | inline QDebugIfHasDebugStream<T> operator<<(QDebug debug, const std::array<T, N> &array)
+      |                                  ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:428:34: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::array<_Tp, _Nm>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:434:34: note: candidate 53: ‘template<class T, class Alloc> QDebugIfHasDebugStream<T> operator<<(QDebug, const std::__cxx11::list<_Tp, _Alloc>&)’
+  434 | inline QDebugIfHasDebugStream<T> operator<<(QDebug debug, const std::list<T, Alloc> &vec)
+      |                                  ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:434:34: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::__cxx11::list<_Tp, _Alloc>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:440:34: note: candidate 54: ‘template<class T> QDebugIfHasDebugStream<T> operator<<(QDebug, std::initializer_list<_Tp>)’
+  440 | inline QDebugIfHasDebugStream<T> operator<<(QDebug debug, std::initializer_list<T> list)
+      |                                  ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:440:34: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘std::initializer_list<_Tp>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:446:39: note: candidate 55: ‘template<class Key, class T, class Compare, class Alloc> QDebugIfHasDebugStream<Key, T> operator<<(QDebug, const std::map<_Key, _Tp, _Compare, _Allocator>&)’
+  446 | inline QDebugIfHasDebugStream<Key, T> operator<<(QDebug debug, const std::map<Key, T, Compare, Alloc> &map)
+      |                                       ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:446:39: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::map<_Key, _Tp, _Compare, _Allocator>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:452:39: note: candidate 56: ‘template<class Key, class T, class Compare, class Alloc> QDebugIfHasDebugStream<Key, T> operator<<(QDebug, const std::multimap<_Key, _Tp, _Compare, _Allocator>&)’
+  452 | inline QDebugIfHasDebugStream<Key, T> operator<<(QDebug debug, const std::multimap<Key, T, Compare, Alloc> &map)
+      |                                       ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:452:39: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::multimap<_Key, _Tp, _Compare, _Allocator>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:458:36: note: candidate 57: ‘template<class Key, class Compare, class Alloc> QDebugIfHasDebugStream<T> operator<<(QDebug, const std::multiset<_Key, _Compare, _Allocator>&)’
+  458 | inline QDebugIfHasDebugStream<Key> operator<<(QDebug debug, const std::multiset<Key, Compare, Alloc> &multiset)
+      |                                    ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:458:36: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::multiset<_Key, _Compare, _Allocator>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:464:36: note: candidate 58: ‘template<class Key, class Compare, class Alloc> QDebugIfHasDebugStream<T> operator<<(QDebug, const std::set<_Key, _Compare, _Allocator>&)’
+  464 | inline QDebugIfHasDebugStream<Key> operator<<(QDebug debug, const std::set<Key, Compare, Alloc> &set)
+      |                                    ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:464:36: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::set<_Key, _Compare, _Allocator>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:470:39: note: candidate 59: ‘template<class Key, class T, class Hash, class KeyEqual, class Alloc> QDebugIfHasDebugStream<Key, T> operator<<(QDebug, const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+  470 | inline QDebugIfHasDebugStream<Key, T> operator<<(QDebug debug, const std::unordered_map<Key, T, Hash, KeyEqual, Alloc> &unordered_map)
+      |                                       ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:470:39: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:476:36: note: candidate 60: ‘template<class Key, class Hash, class KeyEqual, class Alloc> QDebugIfHasDebugStream<T> operator<<(QDebug, const std::unordered_set<_Value1, _Hash1, _Pred1, _Alloc1>&)’
+  476 | inline QDebugIfHasDebugStream<Key> operator<<(QDebug debug, const std::unordered_set<Key, Hash, KeyEqual, Alloc> &unordered_set)
+      |                                    ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:476:36: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::unordered_set<_Value1, _Hash1, _Pred1, _Alloc1>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:482:62: note: candidate 61: ‘template<class Key, class T> QDebugIfHasDebugStreamContainer<QMap<Key, T>, Key, T> operator<<(QDebug, const QMap<Key, T>&)’
+  482 | inline QDebugIfHasDebugStreamContainer<QMap<Key, T>, Key, T> operator<<(QDebug debug, const QMap<Key, T> &map)
+      |                                                              ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:482:62: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QMap<Key, T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:488:67: note: candidate 62: ‘template<class Key, class T> QDebugIfHasDebugStreamContainer<QMultiMap<Key, T>, Key, T> operator<<(QDebug, const QMultiMap<Key, T>&)’
+  488 | inline QDebugIfHasDebugStreamContainer<QMultiMap<Key, T>, Key, T> operator<<(QDebug debug, const QMultiMap<Key, T> &map)
+      |                                                                   ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:488:67: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QMultiMap<Key, T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:494:63: note: candidate 63: ‘template<class Key, class T> QDebugIfHasDebugStreamContainer<QHash<Key, T>, Key, T> operator<<(QDebug, const QHash<Key, T>&)’
+  494 | inline QDebugIfHasDebugStreamContainer<QHash<Key, T>, Key, T> operator<<(QDebug debug, const QHash<Key, T> &hash)
+      |                                                               ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:494:63: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QHash<Key, T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:500:68: note: candidate 64: ‘template<class Key, class T> QDebugIfHasDebugStreamContainer<QMultiHash<Key, T>, Key, T> operator<<(QDebug, const QMultiHash<Key, T>&)’
+  500 | inline QDebugIfHasDebugStreamContainer<QMultiHash<Key, T>, Key, T> operator<<(QDebug debug, const QMultiHash<Key, T> &hash)
+      |                                                                    ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:500:68: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QMultiHash<Key, T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:506:39: note: candidate 65: ‘template<class T1, class T2> QDebugIfHasDebugStream<Key, T> operator<<(QDebug, const std::pair<_T1, _T2>&)’
+  506 | inline QDebugIfHasDebugStream<T1, T2> operator<<(QDebug debug, const std::pair<T1, T2> &pair)
+      |                                       ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:506:39: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::pair<_T1, _T2>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:514:52: note: candidate 66: ‘template<class T> QDebugIfHasDebugStreamContainer<QSet<T>, T> operator<<(QDebug, const QSet<T>&)’
+  514 | inline QDebugIfHasDebugStreamContainer<QSet<T>, T> operator<<(QDebug debug, const QSet<T> &set)
+      |                                                    ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:514:52: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QSet<T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:520:34: note: candidate 67: ‘template<class T> QDebugIfHasDebugStream<T> operator<<(QDebug, const QContiguousCache<T>&)’
+  520 | inline QDebugIfHasDebugStream<T> operator<<(QDebug debug, const QContiguousCache<T> &cache)
+      |                                  ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:520:34: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QContiguousCache<T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:591:15: note: candidate 68: ‘template<class T> QDebug operator<<(QDebug, const QSharedPointer<T>&)’
+  591 | inline QDebug operator<<(QDebug debug, const QSharedPointer<T> &ptr)
+      |               ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:591:15: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QSharedPointer<T>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:601:15: note: candidate 69: ‘template<class T, class Tag> QDebug operator<<(QDebug, const QTaggedPointer<T, Tag>&)’
+  601 | inline QDebug operator<<(QDebug debug, const QTaggedPointer<T, Tag> &ptr)
+      |               ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:601:15: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const QTaggedPointer<T, Tag>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qdebug.h:636:15: note: candidate 70: ‘template<class Flags, typename std::enable_if<QtPrivate::IsQFlags<T>::value, bool>::type <anonymous> > QDebug operator<<(QDebug, Flags)’
+  636 | inline QDebug operator<<(QDebug debug, Flags flags)
+      |               ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:636:15: note: template argument deduction/substitution failed:
+/usr/include/qt6/QtCore/qdebug.h:635:71: error: no type named ‘type’ in ‘struct std::enable_if<false, bool>’
+  635 |           std::enable_if_t<QtPrivate::IsQFlags<Flags>::value, bool> = true>
+      |                                                                       ^~~~
+/usr/include/qt6/QtCore/qdebug.h:685:1: note: candidate 71: ‘template<class T> std::enable_if_t<((bool)QtPrivate::EnumHasQFlag<T>::Value), QDebug> operator<<(QDebug, T)’
+  685 | operator<<(QDebug debug, T flag)
+      | ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:685:1: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:10: note:   cannot convert ‘std::cout’ (type ‘std::ostream’ {aka ‘std::basic_ostream<char>’}) to type ‘QDebug’
+   30 |     std::cout << ranked << std::endl;
+      |     ~~~~~^~~~
+/usr/include/qt6/QtCore/qdebug.h:692:1: note: candidate 72: ‘template<class T> std::enable_if_t<((bool)QtPrivate::EnumHasQEnum<T>::Value), QDebug> operator<<(QDebug, T)’
+  692 | operator<<(QDebug dbg, T value)
+      | ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:692:1: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:10: note:   cannot convert ‘std::cout’ (type ‘std::ostream’ {aka ‘std::basic_ostream<char>’}) to type ‘QDebug’
+   30 |     std::cout << ranked << std::endl;
+      |     ~~~~~^~~~
+In file included from /usr/include/qt6/QtCore/qglobal.h:14,
+                 from /usr/include/qt6/QtCore/qcoreapplication.h:7:
+/usr/include/c++/15.2.1/cstddef:130:5: note: candidate 73: ‘template<class _IntegerType> constexpr std::__byte_op_t<_IntegerType> std::operator<<(byte, _IntegerType)’
+  130 |     operator<<(byte __b, _IntegerType __shift) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/cstddef:130:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:10: note:   cannot convert ‘std::cout’ (type ‘std::ostream’ {aka ‘std::basic_ostream<char>’}) to type ‘std::byte’
+   30 |     std::cout << ranked << std::endl;
+      |     ~~~~~^~~~
+In file included from /usr/include/c++/15.2.1/bits/basic_string.h:51,
+                 from /usr/include/c++/15.2.1/string:56,
+                 from /usr/include/c++/15.2.1/bits/locale_classes.h:42,
+                 from /usr/include/c++/15.2.1/bits/ios_base.h:43,
+                 from /usr/include/c++/15.2.1/streambuf:45,
+                 from /usr/include/c++/15.2.1/bits/streambuf_iterator.h:37,
+                 from /usr/include/c++/15.2.1/iterator:68,
+                 from /usr/include/qt6/QtCore/qcontainertools_impl.h:20:
+/usr/include/c++/15.2.1/string_view:767:5: note: candidate 74: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, basic_string_view<_CharT, _Traits>)’
+  767 |     operator<<(basic_ostream<_CharT, _Traits>& __os,
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/string_view:767:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/basic_string.h:4367:5: note: candidate 75: ‘template<class _CharT, class _Traits, class _Alloc> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, const __cxx11::basic_string<_CharT, _Traits, _Alloc>&)’
+ 4367 |     operator<<(basic_ostream<_CharT, _Traits>& __os,
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/basic_string.h:4367:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+In file included from /usr/include/c++/15.2.1/bits/ios_base.h:48:
+/usr/include/c++/15.2.1/system_error:341:5: note: candidate 76: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, const error_code&)’
+  341 |     operator<<(basic_ostream<_CharT, _Traits>& __os, const error_code& __e)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/system_error:341:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const std::error_code&’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:626:5: note: candidate 77: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _CharT)’
+  626 |     operator<<(basic_ostream<_CharT, _Traits>& __out, _CharT __c)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:626:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   deduced conflicting types for parameter ‘_CharT’ (‘char’ and ‘std::vector<unsigned int>’)
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:636:5: note: candidate 78: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, char)’
+  636 |     operator<<(basic_ostream<_CharT, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:636:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:642:5: note: candidate 79: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, char)’
+  642 |     operator<<(basic_ostream<char, _Traits>& __out, char __c)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:642:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:653:5: note: candidate 80: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, signed char)’
+  653 |     operator<<(basic_ostream<char, _Traits>& __out, signed char __c)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:653:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘signed char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:658:5: note: candidate 81: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, unsigned char)’
+  658 |     operator<<(basic_ostream<char, _Traits>& __out, unsigned char __c)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:658:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘unsigned char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:667:5: note: candidate 82: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, wchar_t)’ (deleted)
+  667 |     operator<<(basic_ostream<char, _Traits>&, wchar_t) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:667:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘wchar_t’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:672:5: note: candidate 83: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, char8_t)’ (deleted)
+  672 |     operator<<(basic_ostream<char, _Traits>&, char8_t) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:672:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘char8_t’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:677:5: note: candidate 84: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, char16_t)’ (deleted)
+  677 |     operator<<(basic_ostream<char, _Traits>&, char16_t) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:677:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘char16_t’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:681:5: note: candidate 85: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, char32_t)’ (deleted)
+  681 |     operator<<(basic_ostream<char, _Traits>&, char32_t) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:681:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘char32_t’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:687:5: note: candidate 86: ‘template<class _Traits> std::basic_ostream<wchar_t, _Traits>& std::operator<<(basic_ostream<wchar_t, _Traits>&, char8_t)’ (deleted)
+  687 |     operator<<(basic_ostream<wchar_t, _Traits>&, char8_t) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:687:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   mismatched types ‘wchar_t’ and ‘char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:692:5: note: candidate 87: ‘template<class _Traits> std::basic_ostream<wchar_t, _Traits>& std::operator<<(basic_ostream<wchar_t, _Traits>&, char16_t)’ (deleted)
+  692 |     operator<<(basic_ostream<wchar_t, _Traits>&, char16_t) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:692:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   mismatched types ‘wchar_t’ and ‘char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:696:5: note: candidate 88: ‘template<class _Traits> std::basic_ostream<wchar_t, _Traits>& std::operator<<(basic_ostream<wchar_t, _Traits>&, char32_t)’ (deleted)
+  696 |     operator<<(basic_ostream<wchar_t, _Traits>&, char32_t) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:696:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   mismatched types ‘wchar_t’ and ‘char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:717:5: note: candidate 89: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, const _CharT*)’
+  717 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const _CharT* __s)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:717:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   mismatched types ‘const _CharT*’ and ‘std::vector<unsigned int>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.tcc:311:5: note: candidate 90: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, const char*)’
+  311 |     operator<<(basic_ostream<_CharT, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.tcc:311:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const char*’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:734:5: note: candidate 91: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, const char*)’
+  734 |     operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:734:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const char*’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:747:5: note: candidate 92: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, const signed char*)’
+  747 |     operator<<(basic_ostream<char, _Traits>& __out, const signed char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:747:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const signed char*’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:752:5: note: candidate 93: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, const unsigned char*)’
+  752 |     operator<<(basic_ostream<char, _Traits>& __out, const unsigned char* __s)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:752:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const unsigned char*’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:761:5: note: candidate 94: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, const wchar_t*)’ (deleted)
+  761 |     operator<<(basic_ostream<char, _Traits>&, const wchar_t*) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:761:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const wchar_t*’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:766:5: note: candidate 95: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, const char8_t*)’ (deleted)
+  766 |     operator<<(basic_ostream<char, _Traits>&, const char8_t*) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:766:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const char8_t*’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:771:5: note: candidate 96: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, const char16_t*)’ (deleted)
+  771 |     operator<<(basic_ostream<char, _Traits>&, const char16_t*) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:771:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const char16_t*’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:775:5: note: candidate 97: ‘template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(basic_ostream<char, _Traits>&, const char32_t*)’ (deleted)
+  775 |     operator<<(basic_ostream<char, _Traits>&, const char32_t*) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:775:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘const char32_t*’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:781:5: note: candidate 98: ‘template<class _Traits> std::basic_ostream<wchar_t, _Traits>& std::operator<<(basic_ostream<wchar_t, _Traits>&, const char8_t*)’ (deleted)
+  781 |     operator<<(basic_ostream<wchar_t, _Traits>&, const char8_t*) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:781:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   mismatched types ‘wchar_t’ and ‘char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:786:5: note: candidate 99: ‘template<class _Traits> std::basic_ostream<wchar_t, _Traits>& std::operator<<(basic_ostream<wchar_t, _Traits>&, const char16_t*)’ (deleted)
+  786 |     operator<<(basic_ostream<wchar_t, _Traits>&, const char16_t*) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:786:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   mismatched types ‘wchar_t’ and ‘char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:790:5: note: candidate 100: ‘template<class _Traits> std::basic_ostream<wchar_t, _Traits>& std::operator<<(basic_ostream<wchar_t, _Traits>&, const char32_t*)’ (deleted)
+  790 |     operator<<(basic_ostream<wchar_t, _Traits>&, const char32_t*) = delete;
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:790:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   mismatched types ‘wchar_t’ and ‘char’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:836:5: note: candidate 101: ‘template<class _Ostream, class _Tp> _Ostream&& std::operator<<(_Ostream&&, const _Tp&)’
+  836 |     operator<<(_Ostream&& __os, const _Tp& __x)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:836:5: note: template argument deduction/substitution failed:
+/usr/include/c++/15.2.1/bits/ostream.h: In substitution of ‘template<class _Ostream, class _Tp> _Ostream&& std::operator<<(_Ostream&&, const _Tp&) [with _Ostream = std::basic_ostream<char>&; _Tp = std::vector<unsigned int>]’:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18:   required from here
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:836:5: error: template constraint failure for ‘template<class _Os, class _Tp>  requires (__derived_from_ios_base<_Os>) && requires(_Os& __os, const _Tp& __t) {__os << __t;} using std::__rvalue_stream_insertion_t = _Os&&’
+  836 |     operator<<(_Ostream&& __os, const _Tp& __x)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:836:5: note: constraints not satisfied
+/usr/include/c++/15.2.1/bits/ostream.h: In substitution of ‘template<class _Os, class _Tp>  requires (__derived_from_ios_base<_Os>) && requires(_Os& __os, const _Tp& __t) {__os << __t;} using std::__rvalue_stream_insertion_t = _Os&& [with _Os = std::basic_ostream<char>&; _Tp = std::vector<unsigned int>]’:
+/usr/include/c++/15.2.1/bits/ostream.h:836:5:   required by substitution of ‘template<class _Ostream, class _Tp> _Ostream&& std::operator<<(_Ostream&&, const _Tp&) [with _Ostream = std::basic_ostream<char>&; _Tp = std::vector<unsigned int>]’
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18:   required from here
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/bits/ostream.h:803:13:   required for the satisfaction of ‘__derived_from_ios_base<_Os>’ [with _Os = std::basic_ostream<char, std::char_traits<char> >&]
+/usr/include/c++/15.2.1/bits/ostream.h:803:39: note: the expression ‘is_class_v<_Tp> [with _Tp = std::basic_ostream<char, std::char_traits<char> >&]’ evaluated to ‘false’
+  803 |     concept __derived_from_ios_base = is_class_v<_Tp>
+      |                                       ^~~~~~~~~~~~~~~
+/usr/include/c++/15.2.1/bits/unique_ptr.h:1156:5: note: candidate 102: ‘template<class _CharT, class _Traits, class _Tp, class _Dp> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, const unique_ptr<_Up, _Ep>&) requires requires{std::operator<<::__os << std::operator<<::__p->get();}’
+ 1156 |     operator<<(basic_ostream<_CharT, _Traits>& __os,
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/unique_ptr.h:1156:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::unique_ptr<_Up, _Ep>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+In file included from /usr/include/c++/15.2.1/memory:82:
+/usr/include/c++/15.2.1/bits/shared_ptr.h:70:5: note: candidate 103: ‘template<class _Ch, class _Tr, class _Tp, __gnu_cxx::_Lock_policy _Lp> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, const __shared_ptr<_Tp, _Lp>&)’
+   70 |     operator<<(std::basic_ostream<_Ch, _Tr>& __os,
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/bits/shared_ptr.h:70:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘const std::__shared_ptr<_Tp, _Lp>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+In file included from /usr/include/c++/15.2.1/bits/chrono_io.h:40,
+                 from /usr/include/c++/15.2.1/chrono:3378:
+/usr/include/c++/15.2.1/iomanip:89:5: note: candidate 104: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _Resetiosflags)’
+   89 |     operator<<(basic_ostream<_CharT, _Traits>& __os, _Resetiosflags __f)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/iomanip:89:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘std::_Resetiosflags’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/iomanip:119:5: note: candidate 105: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _Setiosflags)’
+  119 |     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setiosflags __f)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/iomanip:119:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘std::_Setiosflags’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/iomanip:153:5: note: candidate 106: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _Setbase)’
+  153 |     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setbase __f)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/iomanip:153:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘std::_Setbase’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/iomanip:190:5: note: candidate 107: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _Setfill<_CharT>)’
+  190 |     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setfill<_CharT> __f)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/iomanip:190:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘std::_Setfill<_CharT>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/iomanip:220:5: note: candidate 108: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _Setprecision)’
+  220 |     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setprecision __f)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/iomanip:220:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘std::_Setprecision’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/iomanip:250:5: note: candidate 109: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _Setw)’
+  250 |     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setw __f)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/iomanip:250:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   cannot convert ‘ranked’ (type ‘std::vector<unsigned int>’) to type ‘std::_Setw’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/iomanip:323:5: note: candidate 110: ‘template<class _CharT, class _Traits, class _MoneyT> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _Put_money<_MoneyT>)’
+  323 |     operator<<(basic_ostream<_CharT, _Traits>& __os, _Put_money<_MoneyT> __f)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/iomanip:323:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘std::_Put_money<_MoneyT>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/c++/15.2.1/iomanip:375:5: note: candidate 111: ‘template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(basic_ostream<_CharT, _Traits>&, _Put_time<_CharT>)’
+  375 |     operator<<(basic_ostream<_CharT, _Traits>& __os, _Put_time<_CharT> __f)
+      |     ^~~~~~~~
+/usr/include/c++/15.2.1/iomanip:375:5: note: template argument deduction/substitution failed:
+/home/src/.config/quickshell/addons/wallwatch/wallwatch.cpp:30:18: note:   ‘std::vector<unsigned int>’ is not derived from ‘std::_Put_time<_CharT>’
+   30 |     std::cout << ranked << std::endl;
+      |                  ^~~~~~
+/usr/include/qt6/QtCore/qobject.h:473:22: note: candidate 112: ‘QDebug operator<<(QDebug, const QObject*)’
+  473 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QObject *);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qobject.h:473:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  473 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QObject *);
+      |                                 ^~~~~~
+In file included from /usr/include/qt6/QtCore/qfiledevice.h:8,
+                 from /usr/include/qt6/QtCore/qfile.h:9,
+                 from /usr/include/qt6/QtCore/QFile:1,
+                 from /home/src/.config/quickshell/addons/wallwatch/themer.h:4:
+/usr/include/qt6/QtCore/qiodevice.h:154:22: note: candidate 113: ‘QDebug operator<<(QDebug, QIODeviceBase::OpenMode)’
+  154 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, QIODevice::OpenMode modes);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qiodevice.h:154:40: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  154 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, QIODevice::OpenMode modes);
+      |                                 ~~~~~~~^~~~~
+/usr/include/qt6/QtCore/qdebug.h:700:15: note: candidate 114: ‘QDebug operator<<(QDebug, QKeyCombination)’
+  700 | inline QDebug operator<<(QDebug debug, QKeyCombination combination)
+      |               ^~~~~~~~
+/usr/include/qt6/QtCore/qdebug.h:700:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  700 | inline QDebug operator<<(QDebug debug, QKeyCombination combination)
+      |                          ~~~~~~~^~~~~
+/usr/include/qt6/QtCore/qvariant.h:963:22: note: candidate 115: ‘QDebug operator<<(QDebug, QVariant::Type)’
+  963 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QVariant::Type);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qvariant.h:963:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  963 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QVariant::Type);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qlocale.h:1222:22: note: candidate 116: ‘QDebug operator<<(QDebug, const QLocale&)’
+ 1222 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QLocale &);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qlocale.h:1222:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+ 1222 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QLocale &);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:661:22: note: candidate 117: ‘QDebug operator<<(QDebug, QDate)’
+  661 | Q_CORE_EXPORT QDebug operator<<(QDebug, QDate);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:661:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  661 | Q_CORE_EXPORT QDebug operator<<(QDebug, QDate);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:662:22: note: candidate 118: ‘QDebug operator<<(QDebug, QTime)’
+  662 | Q_CORE_EXPORT QDebug operator<<(QDebug, QTime);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:662:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  662 | Q_CORE_EXPORT QDebug operator<<(QDebug, QTime);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:663:22: note: candidate 119: ‘QDebug operator<<(QDebug, const QDateTime&)’
+  663 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QDateTime &);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qdatetime.h:646:44: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  646 |     friend Q_CORE_EXPORT QDebug operator<<(QDebug, const QDateTime &);
+      |                                            ^~~~~~
+/usr/include/qt6/QtCore/qtimezone.h:265:22: note: candidate 120: ‘QDebug operator<<(QDebug, const QTimeZone&)’
+  265 | Q_CORE_EXPORT QDebug operator<<(QDebug dbg, const QTimeZone &tz);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qtimezone.h:245:51: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  245 |     friend Q_CORE_EXPORT QDebug operator<<(QDebug dbg, const QTimeZone &tz);
+      |                                            ~~~~~~~^~~
+/usr/include/qt6/QtCore/qfileinfo.h:195:22: note: candidate 121: ‘QDebug operator<<(QDebug, const QFileInfo&)’
+  195 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QFileInfo &);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qfileinfo.h:195:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  195 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QFileInfo &);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qdir.h:267:22: note: candidate 122: ‘QDebug operator<<(QDebug, QDir::Filters)’
+  267 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, QDir::Filters filters);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qdir.h:267:40: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  267 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, QDir::Filters filters);
+      |                                 ~~~~~~~^~~~~
+/usr/include/qt6/QtCore/qdir.h:268:22: note: candidate 123: ‘QDebug operator<<(QDebug, const QDir&)’
+  268 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, const QDir &dir);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qdir.h:268:40: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  268 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, const QDir &dir);
+      |                                 ~~~~~~~^~~~~
+/usr/include/qt6/QtCore/qcborcommon.h:100:22: note: candidate 124: ‘QDebug operator<<(QDebug, QCborSimpleType)’
+  100 | Q_CORE_EXPORT QDebug operator<<(QDebug, QCborSimpleType st);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qcborcommon.h:100:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  100 | Q_CORE_EXPORT QDebug operator<<(QDebug, QCborSimpleType st);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qcborcommon.h:101:22: note: candidate 125: ‘QDebug operator<<(QDebug, QCborKnownTags)’
+  101 | Q_CORE_EXPORT QDebug operator<<(QDebug, QCborKnownTags tg);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qcborcommon.h:101:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  101 | Q_CORE_EXPORT QDebug operator<<(QDebug, QCborKnownTags tg);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qcborcommon.h:102:22: note: candidate 126: ‘QDebug operator<<(QDebug, QCborTag)’
+  102 | Q_CORE_EXPORT QDebug operator<<(QDebug, QCborTag tg);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qcborcommon.h:102:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  102 | Q_CORE_EXPORT QDebug operator<<(QDebug, QCborTag tg);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qregularexpression.h:191:22: note: candidate 127: ‘QDebug operator<<(QDebug, const QRegularExpression&)’
+  191 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, const QRegularExpression &re);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qregularexpression.h:191:40: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  191 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, const QRegularExpression &re);
+      |                                 ~~~~~~~^~~~~
+/usr/include/qt6/QtCore/qregularexpression.h:192:22: note: candidate 128: ‘QDebug operator<<(QDebug, QRegularExpression::PatternOptions)’
+  192 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, QRegularExpression::PatternOptions patternOptions);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qregularexpression.h:192:40: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  192 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, QRegularExpression::PatternOptions patternOptions);
+      |                                 ~~~~~~~^~~~~
+/usr/include/qt6/QtCore/qregularexpression.h:276:22: note: candidate 129: ‘QDebug operator<<(QDebug, const QRegularExpressionMatch&)’
+  276 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, const QRegularExpressionMatch &match);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qregularexpression.h:276:40: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  276 | Q_CORE_EXPORT QDebug operator<<(QDebug debug, const QRegularExpressionMatch &match);
+      |                                 ~~~~~~~^~~~~
+/usr/include/qt6/QtCore/qurl.h:331:22: note: candidate 130: ‘QDebug operator<<(QDebug, const QUrl&)’
+  331 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QUrl &);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qurl.h:331:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  331 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QUrl &);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/quuid.h:346:22: note: candidate 131: ‘QDebug operator<<(QDebug, const QUuid&)’
+  346 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QUuid &);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/quuid.h:346:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  346 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QUuid &);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qcborvalue.h:617:22: note: candidate 132: ‘QDebug operator<<(QDebug, const QCborValue&)’
+  617 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QCborValue &v);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qcborvalue.h:617:33: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  617 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QCborValue &v);
+      |                                 ^~~~~~
+/usr/include/qt6/QtCore/qjsondocument.h:116:22: note: candidate 133: ‘QDebug operator<<(QDebug, const QJsonDocument&)’
+  116 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QJsonDocument &);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qjsondocument.h:103:44: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  103 |     friend Q_CORE_EXPORT QDebug operator<<(QDebug, const QJsonDocument &);
+      |                                            ^~~~~~
+/usr/include/qt6/QtCore/qjsonvalue.h:345:22: note: candidate 134: ‘QDebug operator<<(QDebug, const QJsonValue&)’
+  345 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QJsonValue &);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qjsonvalue.h:131:44: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  131 |     friend Q_CORE_EXPORT QDebug operator<<(QDebug, const QJsonValue &);
+      |                                            ^~~~~~
+/usr/include/qt6/QtCore/qjsonobject.h:410:22: note: candidate 135: ‘QDebug operator<<(QDebug, const QJsonObject&)’
+  410 | Q_CORE_EXPORT QDebug operator<<(QDebug, const QJsonObject &);
+      |                      ^~~~~~~~
+/usr/include/qt6/QtCore/qjsonobject.h:374:44: note: no known conversion for argument 1 from ‘std::ostream’ {aka ‘std::basic_ostream<char>’} to ‘QDebug’
+  374 |     friend Q_CORE_EXPORT QDebug operator<<(QDebug, const QJsonObject &);
+      |                                            ^~~~~~
+ninja: build stopped: subcommand failed.

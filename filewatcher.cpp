@@ -1,9 +1,11 @@
 #include "filewatcher.h"
-
+#include <cstdlib>
+#include <iostream>
 namespace wallwatch {
 
 WallWatch::WallWatch(QObject* parent) : QObject(parent), m_dir_is_valid(false) {
-    m_wallDir.setPath(QDir::homePath() + "/.local/share/wallpapers");
+    const char* wallpath = std::getenv("WALL_DIR");
+    m_wallDir.setPath(QString::fromUtf8(wallpath));
     if (!m_wallDir.exists()) {
         if (!m_wallDir.mkpath(".")) {
             qWarning() << "Failed to create wall-directory: " << m_wallDir.absolutePath();
@@ -76,7 +78,7 @@ void WallWatch::processDir() {
     }
 }
 
-WallInfo WallWatch::getWallpaperInfo(int idx = 0) const{
+WallInfo WallWatch::getWallpaperInfo(int idx) const{
     QStringList wallpapers = getWallpapers();
     if(idx < wallpapers.size()){
         return  WallInfo(wallpapers[idx]);
