@@ -1,5 +1,6 @@
 #include "filewatcher.h"
 #include <cstdlib>
+#include <QDirIterator>
 
 namespace wallwatch {
 WallWatch::WallWatch(QObject* parent) : QObject(parent), m_dir_is_valid(false) {
@@ -17,7 +18,6 @@ WallWatch::WallWatch(QObject* parent) : QObject(parent), m_dir_is_valid(false) {
             return;
         }
     }
-
     m_dir_is_valid = true;
     m_watcher = new QFileSystemWatcher(this);
     if (m_wallDir.exists()) {
@@ -42,21 +42,14 @@ void WallWatch::manualWallSet(const QString& path) {
     QFile::copy(path, dest);
 }
 
-QStringList WallWatch::getWallpapers() const{
-    QDir dir(m_wallDir);
-    if (!dir.exists()){
-        return QStringList();
+QStringList WallWatch::getWallpapers()const{
+    QStringList allFiles;
+    QDirIterator it(m_wallDir.path(), {"*.jpg", "*.png", "*.jpeg", "*.webp", "*.mp4", "*.avi", "*.mkv", "*.mov", "*.webm", "*.gif"}, QDir::Files, QDirIterator::Subdirectories);
+    while(it.hasNext()){
+        allFiles << it.next();
     }
-    QStringList files = dir.entryList(
-        {"*.jpg", "*.png", "*.jpeg", "*.webp", "*.mp4", "*.avi", "*.mkv", "*.mov", "*.webm", "*.gif"},
-        QDir::Files,
-        QDir::Name
-    );
-    QStringList fullPaths;
-    for (const QString& file : files){
-        fullPaths.append(dir.absoluteFilePath(file));
-    }
-    return fullPaths;
+    allFiles.sort();
+    return allFiles;
 }
 
 void WallWatch::processDir() {
@@ -83,12 +76,20 @@ void WallWatch::processDir() {
     }
 }
 
-WallInfo WallWatch::getWallpaperInfo(int idx) const{
-    QStringList wallpapers = getWallpapers();
-    if(idx < wallpapers.size()){
-        return  WallInfo(wallpapers[idx]);
+WallInfo WallWatch::getWallpaperInfo(const QString& path) const{
+    QFileInfo file(path);
+    WallInfo info;
+
+    if(!file.exists() || !file.isFile()){
+        return info;
     }
-    return WallInfo();
+    info.path = file.absoluteFilePath();
+    info.name = file.fileName();
+
+    QString ext = file.suffix().toLower();
+    QStringList videoExts = {"mp4", "avi", "mkv", "mov", "webm"};
+    info.isVideo = videoExts.contains(ext);
+    return info;
 }
 
 std::vector<WallInfo> WallWatch::getAllWallpapersInfo() const{
@@ -101,3 +102,4 @@ std::vector<WallInfo> WallWatch::getAllWallpapersInfo() const{
 }
 
 }  //namespace wallwatch
+

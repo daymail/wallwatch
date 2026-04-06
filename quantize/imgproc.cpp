@@ -1,4 +1,5 @@
 #include <opencv2/opencv.hpp>
+#include <cstring>
 #include "wsmeans.h"
 #include "imgproc.h"
 #include "celebi.h"
@@ -6,86 +7,46 @@
 
 namespace wallwatch{
 
-std::vector<Argb> ExtractPixels(const std::string& path){
+std::vector<Argb> ExtractPixels(const std::string& path, int maxDimension){
     cv::Mat frame;
-    cv::VideoCapture cap(path);
-    if(cap.isOpened()){
-        double frames = cap.get(cv::CAP_PROP_FRAME_COUNT);
-        int middleFrame = static_cast<int>(frames/2);
-        cap.set(cv::CAP_PROP_POS_FRAMES, middleFrame);
-        cap.read(frame);
-    }else{
-        frame = cv::imread(path);
+    bool isVideo = path.find(".mp4") != std::string::npos || path.find(".mkv") != std::string::npos || path.find(".gif") != std::string::npos;
+
+    if(isVideo){
+        cv::VideoCapture cap(path);
+        if(cap.isOpened()){
+            cap.set(cv::CAP_PROP_POS_AVI_RATIO, 0.5);
+            if(cap.grab()){
+                cap.retrieve(frame);
+            }
+            cap.release();}
+        }else{
+            frame = cv::imread(path, cv::IMREAD_REDUCED_COLOR_8);
     }
 
-    if(frame.empty()){
-        return {};
+    if(frame.empty()) return {};
+
+    if(frame.rows > maxDimension || frame.cols > maxDimension){
+        double scale = static_cast<double>(maxDimension)/std::max(frame.rows, frame.cols);
+        cv::resize(frame, frame, cv::Size(), scale, scale, cv::INTER_NEAREST);
     }
 
-    cv::Mat rgba;
-    cv::cvtColor(frame, rgba, cv::COLOR_BGR2RGBA);
+    cv::Mat bgra;
+    cv::cvtColor(frame, bgra, cv::COLOR_BGR2BGRA);
 
-    std::vector<Argb> pixels;
-    pixels.reserve(rgba.total());
-
-    const uint8_t* data = rgba.ptr();
-    for(size_t i = 0;i<rgba.total();i++){
-        size_t idx = i*4;
-        Argb argb = (data[idx +3]<< 24) | (data[idx] << 16) | (data[idx + 1] << 8) | data[idx + 2];
-        pixels.push_back(argb);
+    if(!bgra.isContinuous()){
+        std::vector<Argb> pixels;
+        pixels.reserve(bgra.total());
+        for(int r = 0;r<bgra.rows;++r){
+            const Argb* rowPtr = bgra.ptr<Argb>(r);
+            pixels.insert(pixels.end(), rowPtr, rowPtr + bgra.cols);
+        }
+        return pixels;
     }
+
+    std::vector<Argb> pixels(bgra.total());
+    std::memcpy(pixels.data(), bgra.data, bgra.total() * sizeof(uint32_t));
     return pixels;
 }
 
-std::vector<Argb> ImageToPixels(const std::string&  path){
-    cv::Mat img = cv::imread(path);
-    if(path.empty()){
-        return {};
-    }
-
-    cv::Mat rgba;
-    cv::cvtColor(img, rgba, cv::COLOR_BGR2RGBA);
-
-    std::vector<Argb> pixels;
-    pixels.reserve(rgba.total());
-
-    const uint8_t* data = rgba.ptr();
-    for(size_t i = 0;i<rgba.total();i++){
-        size_t idx = i*4;
-        uint8_t r = data[idx];
-        uint8_t g = data[idx+1];
-        uint8_t b = data[idx+2];
-        uint8_t a = data[idx+3];
-
-        Argb argb = (a << 24) | (r << 16) | (g << 8) | b;
-        pixels.push_back(argb);
-    }
-    return pixels;
-}
-
-std::vector<Argb> ImageToPixels(const std::string& path, int maxDimension){
-    cv::Mat img = cv::imread(path);
-    if(img.empty()){
-        return {};
-    }
-    if(img.rows > maxDimension || img.cols > maxDimension){
-        double scale = static_cast<double>(maxDimension) / std::max(img.rows, img.cols);
-        cv::Mat resized;
-        cv::resize(img, resized, cv::Size(), scale, scale);
-        img = resized;
-    }
-
-    cv::Mat rgba;
-    cv::cvtColor(img, rgba, cv::COLOR_BGR2RGBA);
-    std::vector<Argb> pixels;
-    pixels.reserve(rgba.total());
-
-    const uint8_t* data = rgba.ptr();
-    for(size_t i = 0;i<rgba.total();i++){
-        size_t idx = i*4;
-        Argb argb = (data[idx +3]<< 24) | (data[idx] << 16) | (data[idx + 1] << 8) | data[idx + 2];
-        pixels.push_back(argb);
-    }
-    return pixels;
-}
 }   //namespace wallwatch
+

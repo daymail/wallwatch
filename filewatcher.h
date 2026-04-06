@@ -51,7 +51,7 @@ public:
     bool isValid() const;
     void manualWallSet(const QString& path);
     QStringList getWallpapers() const;
-    WallInfo getWallpaperInfo(int idx) const;
+    WallInfo getWallpaperInfo(const QString& path) const;
     std::vector<WallInfo> getAllWallpapersInfo() const;
 
 private slots:

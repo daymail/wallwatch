@@ -3,7 +3,7 @@ project("Wallwatch" VERSION 1.0 LANGUAGES CXX)
 include(fn.cmake)
 include(libs.cmake)
 
-find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core Concurrent)
 find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs videoio)
 qt_standard_project_setup(REQUIRES 6.9)
 
@@ -15,7 +15,7 @@ add_executable(wallwatch
     wallwatch.cpp
     filewatcher.cpp
     filewatcher.h
-    themer.h
+    themer.cpp
 )
 
 set_target_properties(wallwatch PROPERTIES AUTOMOC ON)
@@ -27,6 +27,7 @@ target_link_libraries(wallwatch PRIVATE
     variants_lib
     ${OpenCV_LIBRARIES}
     Qt::Core
+    Qt::Concurrent
 )
 
 target_include_directories(wallwatch PRIVATE
@@ -38,4 +39,4 @@ target_include_directories(wallwatch PRIVATE
 )
 target_link_libraries(quantize_lib PRIVATE ${OpenCV_LIBRARIES})
 target_include_directories(quantize_lib PRIVATE ${OpenCV_INCLUDE_DIRS})
-install(TARGETS wallwatch RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
+install(TARGETS wallwatch RUNTIME DESTINATION /usr/local/bin)

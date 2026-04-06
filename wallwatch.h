@@ -6,5 +6,6 @@
 #include "quantize/celebi.h"
 #include "colorspace/color_types.h"
 #include "colorspace/colorspace.h"
+#include "scheme/variants/scheme_header.h"
 #include "scheme/dynamic/dynamicscheme.h"
-#include "scheme/variants/scheme_tonal_spot.h"
+#include "scheme/dislike/dislike.h"
