@@ -14,22 +14,26 @@ std::vector<Argb> ExtractPixels(const std::string& path, int maxDimension){
     if(isVideo){
         cv::VideoCapture cap(path);
         if(cap.isOpened()){
-            cap.set(cv::CAP_PROP_POS_AVI_RATIO, 0.5);
-            if(cap.grab()){
-                cap.retrieve(frame);
-            }
-            cap.release();}
-        }else{
-            frame = cv::imread(path, cv::IMREAD_REDUCED_COLOR_8);
+            cap.read(frame);
+            cap.release();
+        }
     }
 
-    if(frame.empty()) return {};
+    if(frame.empty()){
+        frame = cv::imread(path, cv::IMREAD_REDUCED_COLOR_8);
+    }
+
+    if(frame.empty()){
+        std::cout << "FATAL: Could not decode " << path << std::endl;
+        return {};
+    }
 
     if(frame.rows > maxDimension || frame.cols > maxDimension){
         double scale = static_cast<double>(maxDimension)/std::max(frame.rows, frame.cols);
         cv::resize(frame, frame, cv::Size(), scale, scale, cv::INTER_NEAREST);
     }
 
+    std::cout << "Process done" << std::endl;
     cv::Mat bgra;
     cv::cvtColor(frame, bgra, cv::COLOR_BGR2BGRA);
 
@@ -49,4 +53,3 @@ std::vector<Argb> ExtractPixels(const std::string& path, int maxDimension){
 }
 
 }   //namespace wallwatch
-

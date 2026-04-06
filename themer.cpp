@@ -1,4 +1,6 @@
 #include "themer.h"
+#include "colorspace/blend.h"
+#include "m3/hct/hct.h"
 
 namespace wallwatch {
 
@@ -87,6 +89,8 @@ QByteArray Themer::serialize(const DynamicScheme& newTheme, const QString& varia
         return QString("#%1").arg(argb & 0xFFFFFF, 6, 16, QChar('0')).toUpper();
     };
 
+    Argb seed = newTheme.SourceColorArgb();
+
     // Core Palette Keys
     colors["primaryPaletteKeyColor"] = hex(newTheme.GetPrimaryPaletteKeyColor());
     colors["secondaryPaletteKeyColor"] = hex(newTheme.GetSecondaryPaletteKeyColor());
@@ -129,12 +133,15 @@ QByteArray Themer::serialize(const DynamicScheme& newTheme, const QString& varia
     colors["onTertiaryContainer"] = hex(newTheme.GetOnTertiaryContainer());
 
     // Error & Success
-    colors["error"] = hex(newTheme.GetError());
-    colors["onError"] = hex(newTheme.GetOnError());
-    colors["errorContainer"] = hex(newTheme.GetErrorContainer());
-    colors["onErrorContainer"] = hex(newTheme.GetOnErrorContainer());
+    Argb harmonizeError = BlendHarmonize(newTheme.GetError(), seed);
+    TonalPalette errorPal(harmonizeError);
+    colors["error"] = hex(errorPal.get(isDark ? 80 : 40));
+    colors["onError"] = hex(errorPal.get(isDark ? 20 : 100));
+    colors["errorContainer"] = hex(errorPal.get(isDark ? 30 : 90));
+    colors["onErrorContainer"] = hex(errorPal.get(isDark ? 90 : 10));
 
-    TonalPalette successPal(0xFF68C285);
+    Argb harmonizeSuccess = BlendHarmonize(0xFF68C285, seed);
+    TonalPalette successPal(harmonizeSuccess);
     colors["success"] = hex(successPal.get(isDark ? 80 : 40));
     colors["onSuccess"] = hex(successPal.get(isDark ? 20 : 100));
     colors["successContainer"] = hex(successPal.get(isDark ? 30 : 90));
@@ -147,9 +154,15 @@ QByteArray Themer::serialize(const DynamicScheme& newTheme, const QString& varia
     colors["scrim"] = hex(newTheme.GetScrim());
     colors["surfaceTint"] = hex(newTheme.GetSurfaceTint());
 
-    TonalPalette brandPal(0xFF5865F2);
+    Argb harmonizeBrand = BlendHarmonize(0xFFFEE2AD, seed);
+    TonalPalette brandPal(harmonizeBrand);
     colors["brand"] = hex(brandPal.get(isDark ? 80 : 40));
     colors["onBrand"] = hex(brandPal.get(isDark ? 20 : 100));
+
+    Argb harmonizeWarning = BlendHarmonize(0xFFF8FAB4, seed);
+    TonalPalette warningPal(harmonizeWarning);
+    colors["warning"]= hex(warningPal.get(isDark ? 80 : 40));
+    colors["warningContainer"] = hex(warningPal.get(isDark ? 30 : 90));
 
     root["colors"] = colors;
     QJsonDocument doc(root);

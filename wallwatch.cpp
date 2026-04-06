@@ -1,12 +1,10 @@
 #include <QCoreApplication>
-#include <QCommandLineParser>
 #include <QtConcurrent>
-#include <iostream>
-#include <QObject>
-#include <QString>
+#include <string_view>
 #include <chrono>
-
+#include <iostream>
 #include "wallwatch.h"
+
 using namespace wallwatch;
 
 QByteArray getFileHash(const QString& path){
@@ -36,35 +34,33 @@ int main(int argc, char *argv[]){
     QCoreApplication app(argc, argv);
 
 auto start = std::chrono::high_resolution_clock::now();
-    app.setApplicationName("wallwatch");
-    app.setApplicationVersion("1.0");
-
-    QCommandLineParser parser;
-    parser.setApplicationDescription("WALLWATCH: M3 Wallpaper Theme Generator.");
-    parser.addHelpOption();
-    parser.addVersionOption();
-
-    QCommandLineOption wallOption({"w", "wallpaper"}, "Path to wallpaper file.", "path");
-    parser.addOption(wallOption);
-
-    QCommandLineOption variantOption({"V", "variant"}, "Theme variant to apply.", "name", "vibrant");
-    parser.addOption(variantOption);
-
-    QCommandLineOption lightOption({"l", "light"}, "Generate light mode theme instead of dark.");
-    parser.addOption(lightOption);
-
-    parser.process(app);
-
-    QString rawPath = parser.value(wallOption);
-    if(rawPath.isEmpty()){
-        std::cerr << "ERROR: No wallpaper path provided. Use -w <path>" << std::endl;
-        parser.showHelp(1);
+    if(argc < 3){
+        std::cerr << "Usage: wallwatch -w <path> [-V variant] [-l]" << std::endl;
+        return 1;
     }
 
-    if(rawPath.startsWith("~")){
-        rawPath.replace(0, 1, QDir::homePath());
+    std::string_view rawPath;
+    QString preferredVariant = "vibrant";
+    bool useDark = true;
+
+    for(int i=1;i<argc;++i){
+        std::string_view arg = argv[i];
+        if((arg == "-w" || arg == "--wallpaper") && i+1 < argc){
+            rawPath = argv[++i];
+        }else if((arg == "-V" || arg == "--variant") && i+1 < argc){
+            preferredVariant = QString::fromUtf8(argv[++i]);
+        }else if(arg == "-l" || arg == "--light"){
+            useDark = false;
+        }
     }
-    QString path = QFileInfo(rawPath).absoluteFilePath();
+    if(rawPath.empty()) return 1;
+
+    QString path;
+    if(rawPath[0] == '~'){
+        path = QDir::homePath() + QString::fromUtf8(rawPath.data()+ 1, rawPath.size() - 1);
+    }else{
+        path = QFileInfo(QString::fromUtf8(rawPath.data(), rawPath.size())).absoluteFilePath();
+    }
 
     if(!QFile::exists(path)){
         std::cerr << "ERROR: File not found: " << path.toStdString() << std::endl;
@@ -81,66 +77,62 @@ auto start = std::chrono::high_resolution_clock::now();
 
     auto info = watcher.getWallpaperInfo(path);
     QByteArray contentHash = getFileHash(info.path);
-    bool useDark = !parser.isSet(lightOption);
-    QString preferredVariant = parser.value(variantOption);
 
-    if(myThemer.fromCache(contentHash, cachePath, preferredVariant, useDark, outPath)){
-        std::cout << "Restored theme from library." << std::endl;
-        return 0;
-    }else if(preferredVariant != "content" && 
-         myThemer.fromCache(contentHash, cachePath, "content", useDark, outPath)){
-        return 0;
+    bool restored = myThemer.fromCache(contentHash, cachePath, preferredVariant, useDark, outPath);
+    if(!restored && preferredVariant != "content"){
+        restored = myThemer.fromCache(contentHash, cachePath, "content", useDark, outPath);
     }
 
-    std::vector<Argb> pixels;
-    pixels = wallwatch::ExtractPixels(path.toStdString(), 64);
+    if(!restored){
+        std::vector<Argb> pixels = wallwatch::ExtractPixels(path.toStdString(), 64);
 
-    if(pixels.empty()){return 1;}
+        if(pixels.empty()){return 1;}
 
-    QuantizerResult pixelColors = QuantizeCelebi(pixels, 128);
-    std::vector<Argb> ranked = RankedSuggestions(pixelColors.color_to_count);
+        QuantizerResult pixelColors = QuantizeCelebi(pixels, 128);
+        std::vector<Argb> ranked = RankedSuggestions(pixelColors.color_to_count);
 
 
-    if(!ranked.empty()){
-        Argb seed = ranked[0];
-        HCT source = Hct(seed);
-        source = wallwatch::FixIfDisliked(source);
+        if(!ranked.empty()){
+            Argb seed = ranked[0];
+            HCT source = Hct(seed);
+            source = wallwatch::FixIfDisliked(source);
 
-        struct VariantType{QString name;};
-        std::vector<QString> variantNames = {"vibrant", "tonal_spot", "fidelity", "neutral", "rainbow", "expressive", "fruit_salad", "monochrome", "content"};
+            struct VariantType{QString name;};
+            std::vector<QString> variantNames = {"vibrant", "tonal_spot", "fidelity", "neutral", "rainbow", "expressive", "fruit_salad", "monochrome", "content"};
 
-        auto s = generateScheme(source, preferredVariant, useDark);
-        if(s){
-            QByteArray microData = myThemer.microSerialize(*s, contentHash);
-            myThemer.updateScheme(microData, outPath);
-        }
-
-        bool otherMode = !useDark;
-        auto sOther = generateScheme(source, preferredVariant, otherMode);
-        if(sOther){
-            QByteArray other = myThemer.serialize(*sOther, preferredVariant, path, contentHash);
-            myThemer.saveToCache(other, contentHash, preferredVariant, otherMode);
-        }
-
-        QFuture<void> future = QtConcurrent::run([=, &myThemer](){
-            auto fullscheme = generateScheme(source, preferredVariant, useDark);
-            QByteArray full = myThemer.serialize(*fullscheme, preferredVariant, path, contentHash);
-            myThemer.updateScheme(full, outPath);
-            myThemer.saveToCache(full, contentHash, preferredVariant, useDark);
-
-            for(const QString& name: variantNames){
-                if(name == preferredVariant) continue;
-                auto ds = generateScheme(source, name, true);
-                myThemer.saveToCache(myThemer.serialize(*ds, name, path, contentHash), contentHash, name, true);
-                auto ls = generateScheme(source, name, false);
-                myThemer.saveToCache(myThemer.serialize(*ls, name, path, contentHash), contentHash, name, false);
+            auto s = generateScheme(source, preferredVariant, useDark);
+            if(s){
+                QByteArray microData = myThemer.microSerialize(*s, contentHash);
+                myThemer.updateScheme(microData, outPath);
             }
-        });
 
-        std::cout << "Theme applied from: " << outPath.toStdString() << std::endl;
+            bool otherMode = !useDark;
+            auto sOther = generateScheme(source, preferredVariant, otherMode);
+            if(sOther){
+                QByteArray other = myThemer.serialize(*sOther, preferredVariant, path, contentHash);
+                myThemer.saveToCache(other, contentHash, preferredVariant, otherMode);
+            }
+
+            QFuture<void> future = QtConcurrent::run([=, &myThemer](){
+                auto fullscheme = generateScheme(source, preferredVariant, useDark);
+                QByteArray full = myThemer.serialize(*fullscheme, preferredVariant, path, contentHash);
+                myThemer.updateScheme(full, outPath);
+                myThemer.saveToCache(full, contentHash, preferredVariant, useDark);
+
+                for(const QString& name: variantNames){
+                    if(name == preferredVariant) continue;
+                    auto ds = generateScheme(source, name, true);
+                    myThemer.saveToCache(myThemer.serialize(*ds, name, path, contentHash), contentHash, name, true);
+                    auto ls = generateScheme(source, name, false);
+                    myThemer.saveToCache(myThemer.serialize(*ls, name, path, contentHash), contentHash, name, false);
+                }
+            });
+            std::cout << "Theme applied from: " << outPath.toStdString() << std::endl;
+        }
     }
+
 auto end = std::chrono::high_resolution_clock::now();
 auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-std::cout << "Operation took: " << duration.count() << " μs" << std::endl;
+    std::cout << "Operation took: " << duration.count() << " μs" << std::endl;
     return 0;
 }
