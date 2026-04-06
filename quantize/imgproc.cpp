@@ -33,7 +33,6 @@ std::vector<Argb> ExtractPixels(const std::string& path, int maxDimension){
         cv::resize(frame, frame, cv::Size(), scale, scale, cv::INTER_NEAREST);
     }
 
-    std::cout << "Process done" << std::endl;
     cv::Mat bgra;
     cv::cvtColor(frame, bgra, cv::COLOR_BGR2BGRA);
 

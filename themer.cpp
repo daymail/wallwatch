@@ -154,15 +154,17 @@ QByteArray Themer::serialize(const DynamicScheme& newTheme, const QString& varia
     colors["scrim"] = hex(newTheme.GetScrim());
     colors["surfaceTint"] = hex(newTheme.GetSurfaceTint());
 
-    Argb harmonizeBrand = BlendHarmonize(0xFFFEE2AD, seed);
+    Argb harmonizeBrand = BlendHarmonize(0xFF7AAACE, seed);
     TonalPalette brandPal(harmonizeBrand);
     colors["brand"] = hex(brandPal.get(isDark ? 80 : 40));
     colors["onBrand"] = hex(brandPal.get(isDark ? 20 : 100));
 
-    Argb harmonizeWarning = BlendHarmonize(0xFFF8FAB4, seed);
+    Argb harmonizeWarning = BlendHarmonize(0xFFFFB900, seed);
     TonalPalette warningPal(harmonizeWarning);
-    colors["warning"]= hex(warningPal.get(isDark ? 80 : 40));
+    colors["warning"] = hex(warningPal.get(isDark ? 80 : 40));
+    colors["onWarning"] = hex(warningPal.get(isDark ? 20 : 100));
     colors["warningContainer"] = hex(warningPal.get(isDark ? 30 : 90));
+    colors["onWarningContainer"] = hex(warningPal.get(isDark ? 90 : 10));
 
     root["colors"] = colors;
     QJsonDocument doc(root);

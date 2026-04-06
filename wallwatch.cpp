@@ -1,7 +1,6 @@
 #include <QCoreApplication>
 #include <QtConcurrent>
 #include <string_view>
-#include <chrono>
 #include <iostream>
 #include "wallwatch.h"
 
@@ -33,7 +32,6 @@ return std::make_unique<SchemeContent>(source, isDark, 0.0);
 int main(int argc, char *argv[]){
     QCoreApplication app(argc, argv);
 
-auto start = std::chrono::high_resolution_clock::now();
     if(argc < 3){
         std::cerr << "Usage: wallwatch -w <path> [-V variant] [-l]" << std::endl;
         return 1;
@@ -130,9 +128,5 @@ auto start = std::chrono::high_resolution_clock::now();
             std::cout << "Theme applied from: " << outPath.toStdString() << std::endl;
         }
     }
-
-auto end = std::chrono::high_resolution_clock::now();
-auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    std::cout << "Operation took: " << duration.count() << " μs" << std::endl;
     return 0;
 }
