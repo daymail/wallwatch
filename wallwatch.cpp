@@ -25,7 +25,7 @@ std::unique_ptr<DynamicScheme> generateScheme(const HCT& source, const QString& 
     else if(name == "monochrome")    return std::make_unique<SchemeMonochrome>(source, isDark, 0.0);
     else if(name == "content")       return std::make_unique<SchemeContent>(source, isDark, 0.0);
 
-return std::make_unique<SchemeContent>(source, isDark, 0.0);
+ return std::make_unique<SchemeContent>(source, isDark, 0.0);
 }
 
 
