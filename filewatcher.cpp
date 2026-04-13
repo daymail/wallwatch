@@ -77,19 +77,7 @@ void WallWatch::processDir() {
 }
 
 WallInfo WallWatch::getWallpaperInfo(const QString& path) const{
-    QFileInfo file(path);
-    WallInfo info;
-
-    if(!file.exists() || !file.isFile()){
-        return info;
-    }
-    info.path = file.absoluteFilePath();
-    info.name = file.fileName();
-
-    QString ext = file.suffix().toLower();
-    QStringList videoExts = {"mp4", "avi", "mkv", "mov", "webm"};
-    info.isVideo = videoExts.contains(ext);
-    return info;
+    return WallInfo(path);
 }
 
 std::vector<WallInfo> WallWatch::getAllWallpapersInfo() const{

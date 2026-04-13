@@ -89,7 +89,6 @@ int main(int argc, char *argv[]){
         QuantizerResult pixelColors = QuantizeCelebi(pixels, 128);
         std::vector<Argb> ranked = RankedSuggestions(pixelColors.color_to_count);
 
-
         if(!ranked.empty()){
             Argb seed = ranked[0];
             HCT source = Hct(seed);
@@ -116,7 +115,7 @@ int main(int argc, char *argv[]){
                 QByteArray full = myThemer.serialize(*fullscheme, preferredVariant, path, contentHash);
                 myThemer.updateScheme(full, outPath);
                 myThemer.saveToCache(full, contentHash, preferredVariant, useDark);
-
+                myThemer.updateMeta(info, contentHash, path, source);
                 for(const QString& name: variantNames){
                     if(name == preferredVariant) continue;
                     auto ds = generateScheme(source, name, true);
@@ -125,7 +124,6 @@ int main(int argc, char *argv[]){
                     myThemer.saveToCache(myThemer.serialize(*ls, name, path, contentHash), contentHash, name, false);
                 }
             });
-            std::cout << "Theme applied from: " << outPath.toStdString() << std::endl;
         }
     }
     return 0;

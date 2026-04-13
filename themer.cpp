@@ -1,6 +1,9 @@
 #include "themer.h"
 #include "colorspace/blend.h"
 #include "m3/hct/hct.h"
+#include <QProcess>
+#include <qdebug.h>
+#include <qprocess.h>
 
 namespace wallwatch {
 
@@ -67,6 +70,35 @@ void Themer::updateScheme(const QByteArray& jsonData, const QString& outPath){
             qWarning() << "Failed to commit updates to: " << outPath;
         }
     }
+}
+
+void Themer::updateMeta(const wallwatch::WallInfo& info, const QByteArray& hash, const QString& path,const HCT& source){
+    QString ln = "user.wallpaper-path";
+    QString hashDir = QDir::homePath() + QString("/.cache/wallwatch/wallcache/%1/").arg(QString::fromUtf8(hash));
+    QDir dir;
+    if (!dir.exists(hashDir)){
+        if (!dir.mkpath(hashDir)){return;}
+    }
+    QFile metaFile(hashDir + "/.metadata.ini");
+    if(metaFile.open(QIODevice::WriteOnly | QIODevice::Text)){
+        QTextStream out(&metaFile);
+        out << "[Identity]" << "\n";
+        out << "hash = " << hash << "\n";
+        out << "wallpaper-path = " << path << "\n";
+        out << "file-name = " << path.section('/', -1) << "\n";
+        out << "creation-time = " << QDateTime::currentMSecsSinceEpoch() << "\n";
+        out << "size = " << info.size << "\n";
+        out << "width = " << info.width << "\n";
+        out << "height = " << info.height << "\n\n";
+        out << "[Config]" << "\n";
+        out << "dom-color = " << QString("#%1").arg(source.ToInt() & 0xFFFFFF, 6, 16, QChar('0')).toUpper() << "\n";
+        out << "preferred-theme = " << (source.get_tone() > 50 ? "dark":"light") << "\n";
+        out << "orientation = " << info.orientation << "\n";
+        out << "video = " << (info.isVideo ? "1": "0") << "\n";
+        metaFile.close();
+    }
+    QString cmd = QString("setfattr -n user.wallpaper-path -v '%1' %2").arg(path.toStdString(), hashDir);
+    system(cmd.toUtf8().constData());
 }
 
 QByteArray Themer::serialize(const DynamicScheme& newTheme, const QString& variantName, const QString& wallpaperPath, const QByteArray& hash){
