@@ -3,7 +3,7 @@ project("Wallwatch" VERSION 1.0 LANGUAGES CXX)
 include(fn.cmake)
 include(libs.cmake)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Concurrent)
+find_package(Qt6 REQUIRED COMPONENTS Core Concurrent DBus)
 find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs videoio)
 qt_standard_project_setup(REQUIRES 6.9)
 
@@ -28,6 +28,7 @@ target_link_libraries(wallwatch PRIVATE
     variants_lib
     ${OpenCV_LIBRARIES}
     Qt::Core
+    Qt::DBus
     Qt::Concurrent
 )
 

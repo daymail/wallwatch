@@ -9,6 +9,8 @@
 #include <memory>
 #include <QCryptographicHash>
 #include <QSaveFile>
+#include <QDBusInterface>
+#include <QDBusConnection>
 
 #include "scheme/dynamic/dynamicscheme.h"
 #include "scheme/tone.h"
@@ -27,6 +29,7 @@ public:
     bool fromCache(const QByteArray& hash, const QString& cachePath, const QString& variantName, bool isDark, const QString& schemePath);
     void saveToCache(const QByteArray& jsonData, const QByteArray& hash, const QString& variantName, bool isDark);
     void updateScheme(const QByteArray& jsonData, const QString& outPath);
+    QString generateItemKey();
     QByteArray microSerialize(const DynamicScheme& scheme, const QByteArray& hash);
     QByteArray serialize(const DynamicScheme& newTheme, const QString& variantName, const QString& wallpaperPath, const QByteArray& hash);
 
