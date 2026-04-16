@@ -2,7 +2,6 @@ CompileFlags:
   Add: [
     "-I/usr/include/qt6",
     "-I/usr/include/qt6/QtCore",
-    "-I/usr/include/qt6/QtWidgets",
     "-DQT_CORE_LIB",
     "-fPIC"
   ]
