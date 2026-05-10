@@ -65,7 +65,6 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    WallWatch watcher;
     Themer myThemer;
 
     const char* genPath = std::getenv("SCRIPT_GEN");
@@ -73,8 +72,7 @@ int main(int argc, char *argv[]){
     QString outPath = (genPath == nullptr || std::string(genPath).empty()) ? QDir::homePath() + "/.local/share/wallscript/scheme.json" : QString::fromUtf8(genPath) + "scheme.json";
     QString cachePath = (cachePathEnv == nullptr) ? QDir::homePath() + "/.cache/wallwatch/wallcache/" : QString::fromUtf8(cachePathEnv);
 
-    auto info = watcher.getWallpaperInfo(path);
-    QByteArray contentHash = getFileHash(info.path);
+    QByteArray contentHash = getFileHash(path);
 
     bool restored = myThemer.fromCache(contentHash, cachePath, preferredVariant, useDark, outPath);
     if(!restored && preferredVariant != "content"){
@@ -115,7 +113,7 @@ int main(int argc, char *argv[]){
                 QByteArray full = myThemer.serialize(*fullscheme, preferredVariant, path, contentHash);
                 myThemer.updateScheme(full, outPath);
                 myThemer.saveToCache(full, contentHash, preferredVariant, useDark);
-                myThemer.updateMeta(info, contentHash, path, source);
+                myThemer.updateMeta(contentHash, path, source);
                 for(const QString& name: variantNames){
                     if(name == preferredVariant) continue;
                     auto ds = generateScheme(source, name, true);

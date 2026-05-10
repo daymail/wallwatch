@@ -25,7 +25,7 @@ public:
     QByteArray getLastHash() const {return m_lastHash;}
     void setLastHash(const QByteArray& hash) { m_lastHash = hash; }
 
-    void updateMeta(const wallwatch::WallInfo& info, const QByteArray& hash, const QString& path, const HCT& source);
+    void updateMeta(const QByteArray& hash, const QString& path, const HCT& source);
     bool fromCache(const QByteArray& hash, const QString& cachePath, const QString& variantName, bool isDark, const QString& schemePath);
     void saveToCache(const QByteArray& jsonData, const QByteArray& hash, const QString& variantName, bool isDark);
     void updateScheme(const QByteArray& jsonData, const QString& outPath);

@@ -4,7 +4,6 @@
 #include <QProcess>
 #include <qdebug.h>
 #include <qprocess.h>
-#include <QRandomGenerator>
 
 namespace wallwatch {
 
@@ -74,26 +73,18 @@ void Themer::updateScheme(const QByteArray& jsonData, const QString& outPath){
 }
 
 
-void Themer::updateMeta(const wallwatch::WallInfo& info, const QByteArray& hash, const QString& path,const HCT& source){
+void Themer::updateMeta(const QByteArray& hash, const QString& path,const HCT& source){
     QString ln = "user.wallpaper-path";
     QString hashDir = QDir::homePath() + QString("/.cache/wallwatch/wallcache/%1/").arg(QString::fromUtf8(hash));
     QString cmd = QString("setfattr -n user.wallpaper-path -v '%1' %2").arg(path.toStdString(), hashDir);
     system(cmd.toUtf8().constData());
 
     QVariantMap metadata;
-    metadata["item_key"] = generateItemKey();
     metadata["hash"] = QString::fromUtf8(hash);
     metadata["wallpaper_path"] = path;
-    metadata["file_name"] = path.section('/', -1);
     metadata["creation_time"] = QDateTime::currentMSecsSinceEpoch();
-    metadata["size"] = info.getHumanReadableSize();
-    metadata["width"] = info.width;
-    metadata["height"] = info.height;
-    metadata["aspect_ratio"] = info.aspectRatio;
     metadata["dom_color"] = QString("#%1").arg(source.ToInt() & 0xFFFFFF, 6, 16, QChar('0')).toUpper();
     metadata["preferred_theme"] = (source.get_tone() > 50 ? "dark":"light");
-    metadata["orientation"] = info.orientation;
-    metadata["is_video"] = (info.isVideo ? "1":"0");
 
     QDBusInterface remoteModule("com.scoutd.daemon", "/Modules/wallwatch", "com.scoutd.daemon.Module", QDBusConnection::sessionBus());
     if(remoteModule.isValid()){
@@ -104,16 +95,6 @@ void Themer::updateMeta(const wallwatch::WallInfo& info, const QByteArray& hash,
     }
 }
 
-QString Themer::generateItemKey(){
-    const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
-    const int randomStringLength = 4;
-    QString randomString;
-    for(int i=0; i < randomStringLength; ++i) {
-        int index = QRandomGenerator::global()->bounded(possibleCharacters.length());
-        randomString.append(possibleCharacters.at(index));
-    }
-    return QString("wp_%1").arg(randomString);
-}
 
 QByteArray Themer::serialize(const DynamicScheme& newTheme, const QString& variantName, const QString& wallpaperPath, const QByteArray& hash){
     m_lastHash = hash;

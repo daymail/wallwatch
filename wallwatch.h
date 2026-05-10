@@ -1,5 +1,4 @@
 #include "themer.h"
-#include "filewatcher.h"
 #include "m3/score/score.h"
 #include "m3/hct/hct.h"
 #include "quantize/imgproc.h"
