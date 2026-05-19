@@ -15,6 +15,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(wallwatch
     wallwatch.cpp
     themer.cpp
+    exporter.cc
 )
 
 set_target_properties(wallwatch PROPERTIES AUTOMOC ON)

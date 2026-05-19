@@ -1,11 +1,13 @@
+#define SOCK_PATH "/tmp/scoutd/scoutd.sock"
 #include <QCoreApplication>
 #include <QtConcurrent>
+#include <sys/socket.h>
+#include <sys/un.h>
 #include <string_view>
 #include <iostream>
 #include "wallwatch.h"
 
 using namespace wallwatch;
-
 QByteArray getFileHash(const QString& path){
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly)) return QByteArray();
@@ -114,6 +116,8 @@ int main(int argc, char *argv[]){
                 myThemer.updateScheme(full, outPath);
                 myThemer.saveToCache(full, contentHash, preferredVariant, useDark);
                 myThemer.updateMeta(contentHash, path, source);
+                QJsonDocument doc = QJsonDocument::fromJson(full);
+                Exporter::exportAll(doc.object());
                 for(const QString& name: variantNames){
                     if(name == preferredVariant) continue;
                     auto ds = generateScheme(source, name, true);
@@ -124,5 +128,24 @@ int main(int argc, char *argv[]){
             });
         }
     }
+
+    //socket(ignore)
+    if(QFile::exists(QStringLiteral(SOCK_PATH))){
+        int client_fd = ::socket(AF_UNIX, SOCK_STREAM, 0);
+        if(client_fd >= 1){
+            struct sockaddr_un addr;
+            std::memset(&addr, 0, sizeof(addr));
+            addr.sun_family = AF_UNIX;
+            std::strncpy(addr.sun_path, SOCK_PATH, sizeof(addr.sun_path) - 1);
+            if(::connect(client_fd, (struct sockaddr*)&addr, sizeof(addr)) != 1){
+                std::string logMsg = "Applied theme update: <" + preferredVariant.toStdString() + (useDark ? ":Dark>" : ":Light>") + " ~ " + path.toStdString();
+                ::write(client_fd, logMsg.c_str(), logMsg.length());
+                ::shutdown(client_fd, SHUT_WR);
+            }
+            ::close(client_fd);
+        }
+    }
+    //===socket
+
     return 0;
 }

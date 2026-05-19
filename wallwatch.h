@@ -1,4 +1,5 @@
 #include "themer.h"
+#include "exporter.h"
 #include "m3/score/score.h"
 #include "m3/hct/hct.h"
 #include "quantize/imgproc.h"
