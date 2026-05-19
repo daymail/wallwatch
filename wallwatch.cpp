@@ -1,3 +1,4 @@
+#include <chrono>
 #define SOCK_PATH "/tmp/scoutd/scoutd.sock"
 #include <QCoreApplication>
 #include <QtConcurrent>
@@ -16,26 +17,12 @@ QByteArray getFileHash(const QString& path){
     return hasher.result().toHex();
 }
 
-std::unique_ptr<DynamicScheme> generateScheme(const HCT& source, const QString& name, bool isDark){
-    if(name == "vibrant")            return std::make_unique<SchemeVibrant>(source, isDark, 0.0);
-    else if(name == "tonal_spot")    return std::make_unique<SchemeTonalSpot>(source, isDark, 0.0);
-    else if(name == "fidelity")      return std::make_unique<SchemeFidelity>(source, isDark, 0.0);
-    else if(name == "neutral")       return std::make_unique<SchemeNeutral>(source, isDark, 0.0);
-    else if(name == "rainbow")       return std::make_unique<SchemeRainbow>(source, isDark, 0.0);
-    else if(name == "expressive")    return std::make_unique<SchemeExpressive>(source, isDark, 0.0);
-    else if(name == "fruit_salad")   return std::make_unique<SchemeFruitSalad>(source, isDark, 0.0);
-    else if(name == "monochrome")    return std::make_unique<SchemeMonochrome>(source, isDark, 0.0);
-    else if(name == "content")       return std::make_unique<SchemeContent>(source, isDark, 0.0);
-
- return std::make_unique<SchemeContent>(source, isDark, 0.0);
-}
-
-
 int main(int argc, char *argv[]){
+    auto start = std::chrono::high_resolution_clock::now();
     QCoreApplication app(argc, argv);
 
     if(argc < 3){
-        std::cerr << "Usage: wallwatch -w <path> [-V variant] [-l]" << std::endl;
+        std::cerr << "Usage: wallwatch -w <path> [-V <variant>] [-l]" << std::endl;
         return 1;
     }
 
@@ -76,9 +63,9 @@ int main(int argc, char *argv[]){
 
     QByteArray contentHash = getFileHash(path);
 
-    bool restored = myThemer.fromCache(contentHash, cachePath, preferredVariant, useDark, outPath);
+    bool restored = myThemer.applyFromCache(contentHash, preferredVariant, useDark, outPath);
     if(!restored && preferredVariant != "content"){
-        restored = myThemer.fromCache(contentHash, cachePath, "content", useDark, outPath);
+        restored = myThemer.applyFromCache(contentHash, "content", useDark, outPath);
     }
 
     if(!restored){
@@ -93,38 +80,15 @@ int main(int argc, char *argv[]){
             Argb seed = ranked[0];
             HCT source = Hct(seed);
             source = wallwatch::FixIfDisliked(source);
-
-            struct VariantType{QString name;};
-            std::vector<QString> variantNames = {"vibrant", "tonal_spot", "fidelity", "neutral", "rainbow", "expressive", "fruit_salad", "monochrome", "content"};
-
-            auto s = generateScheme(source, preferredVariant, useDark);
-            if(s){
-                QByteArray microData = myThemer.microSerialize(*s, contentHash);
-                myThemer.updateScheme(microData, outPath);
-            }
-
-            bool otherMode = !useDark;
-            auto sOther = generateScheme(source, preferredVariant, otherMode);
-            if(sOther){
-                QByteArray other = myThemer.serialize(*sOther, preferredVariant, path, contentHash);
-                myThemer.saveToCache(other, contentHash, preferredVariant, otherMode);
-            }
-
-            QFuture<void> future = QtConcurrent::run([=, &myThemer](){
-                auto fullscheme = generateScheme(source, preferredVariant, useDark);
-                QByteArray full = myThemer.serialize(*fullscheme, preferredVariant, path, contentHash);
-                myThemer.updateScheme(full, outPath);
-                myThemer.saveToCache(full, contentHash, preferredVariant, useDark);
-                myThemer.updateMeta(contentHash, path, source);
-                QJsonDocument doc = QJsonDocument::fromJson(full);
-                Exporter::exportAll(doc.object());
-                for(const QString& name: variantNames){
-                    if(name == preferredVariant) continue;
-                    auto ds = generateScheme(source, name, true);
-                    myThemer.saveToCache(myThemer.serialize(*ds, name, path, contentHash), contentHash, name, true);
-                    auto ls = generateScheme(source, name, false);
-                    myThemer.saveToCache(myThemer.serialize(*ls, name, path, contentHash), contentHash, name, false);
-                }
+            uint32_t seedArgb = source.ToInt();
+            myThemer.registerWallpaper(contentHash, path, seedArgb);
+            myThemer.applyFromCache(contentHash, preferredVariant, useDark, outPath);
+            QThreadPool::globalInstance() ->start([outPath](){
+                    QFile activeFile(outPath);
+                    if(activeFile.open(QIODevice::ReadOnly)){
+                        QJsonDocument doc = QJsonDocument::fromJson(activeFile.readAll());
+                        Exporter::exportAll(doc.object());
+                    }
             });
         }
     }
@@ -137,7 +101,7 @@ int main(int argc, char *argv[]){
             std::memset(&addr, 0, sizeof(addr));
             addr.sun_family = AF_UNIX;
             std::strncpy(addr.sun_path, SOCK_PATH, sizeof(addr.sun_path) - 1);
-            if(::connect(client_fd, (struct sockaddr*)&addr, sizeof(addr)) != 1){
+            if(::connect(client_fd, (struct sockaddr*)&addr, sizeof(addr)) == 0){
                 std::string logMsg = "Applied theme update: <" + preferredVariant.toStdString() + (useDark ? ":Dark>" : ":Light>") + " ~ " + path.toStdString();
                 ::write(client_fd, logMsg.c_str(), logMsg.length());
                 ::shutdown(client_fd, SHUT_WR);
@@ -146,6 +110,15 @@ int main(int argc, char *argv[]){
         }
     }
     //===socket
-
+    QThreadPool::globalInstance()->waitForDone();
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto total = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count();
+    std::cout << "Execution completed in: " << total << " ms" << " file: " << path.toStdString() << std::endl;
+    QFile file("output.txt");
+    if (file.open(QIODevice::WriteOnly)) {
+        QTextStream stream(&file);
+        stream << "Execution completed in: " << total << " ms" << " file: " << path;
+        file.close();
+    }
     return 0;
 }

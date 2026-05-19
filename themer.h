@@ -22,18 +22,13 @@ class Themer {
 public:
     explicit Themer() : m_lastHash(""){}
 
-    QByteArray getLastHash() const {return m_lastHash;}
-    void setLastHash(const QByteArray& hash) { m_lastHash = hash; }
-
-    void updateMeta(const QByteArray& hash, const QString& path, const HCT& source);
-    bool fromCache(const QByteArray& hash, const QString& cachePath, const QString& variantName, bool isDark, const QString& schemePath);
-    void saveToCache(const QByteArray& jsonData, const QByteArray& hash, const QString& variantName, bool isDark);
-    void updateScheme(const QByteArray& jsonData, const QString& outPath);
-    QString generateItemKey();
-    QByteArray microSerialize(const DynamicScheme& scheme, const QByteArray& hash);
-    QByteArray serialize(const DynamicScheme& newTheme, const QString& variantName, const QString& wallpaperPath, const QByteArray& hash);
-
+    void updateScheme(const DynamicScheme &newTheme, const QString &variant, const QString &fileName, const QString &outPath);
+    void registerWallpaper(const QByteArray &hash, const QString &wallpaper, uint32_t seedArgb);
+    bool applyFromCache(const QByteArray &hash, const QString &variant, bool isDark, const QString &schemePath);
 private:
+    QString registryPath();
+    QJsonObject loadRegistry();
+    void saveRegistry(const QJsonObject &registry);
     QByteArray m_lastHash;
 };
 

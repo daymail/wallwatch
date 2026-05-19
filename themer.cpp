@@ -1,4 +1,5 @@
 #include "themer.h"
+#include "scheme/variants/scheme_header.h"
 #include "colorspace/blend.h"
 #include "m3/hct/hct.h"
 #include <QProcess>
@@ -7,116 +8,94 @@
 
 namespace wallwatch {
 
-QByteArray Themer::microSerialize(const DynamicScheme& scheme, const QByteArray& hash){
-    auto hex = [](uint32_t argb) -> QString{
-        return QString("#%1").arg(argb & 0xFFFFFF, 6, 16, QChar('0')).toUpper();
-    };
-
-    QString json = QString("{\"hash\":\"%1\",\"colors\":{"
-                           "\"background\":\"%2\","
-                           "\"primary\":\"%3\","
-                           "\"surface\":\"%4\","
-                           "\"onSurface\":\"%5\""
-                           "}}")
-                        .arg(QString::fromUtf8(hash),
-                            hex(scheme.GetBackground()),
-                            hex(scheme.GetPrimary()),
-                            hex(scheme.GetSurface()),
-                            hex(scheme.GetOnSurface()));
-    return json.toUtf8();
+QString Themer::registryPath(){
+    return QDir::homePath() + "/.cache/wallwatch/wallcache/registry.json";
 }
 
-
-bool Themer::fromCache(const QByteArray& hash, const QString& cachePath, const QString& variantName, bool isDark, const QString& schemePath){
-    QString mode = isDark ? "dark" : "light";
-    QString base = cachePath;
-    if(!base.endsWith('/')) base += '/';
-
-    QString cacheFile = base + QString("%1/%2/%3.json").arg(QString::fromUtf8(hash), variantName, mode);
-
-    if(QFile::exists(cacheFile)){
-        QFile source(cacheFile);
-        if(source.open(QIODevice::ReadOnly)){
-            QSaveFile destination(schemePath);
-            if(destination.open(QIODevice::WriteOnly)){
-                destination.write(source.readAll());
-                return destination.commit();
-            }
-        }
+QJsonObject Themer::loadRegistry(){
+    QFile file(registryPath());
+    if(!file.open(QIODevice::ReadOnly)){
+        return QJsonObject();
     }
-    return false;
+    return QJsonDocument::fromJson(file.readAll()).object();
 }
 
-void Themer::saveToCache(const QByteArray& jsonData, const QByteArray& hash, const QString& variantName, bool isDark){
-    QString mode = isDark ? "dark" : "light";
-    QString cachePath = QDir::homePath() + QString("/.cache/wallwatch/wallcache/%1/%2/").arg(QString::fromUtf8(hash), variantName);
-    QDir().mkpath(cachePath);
+void Themer::saveRegistry(const QJsonObject &registry){
+    QFileInfo info(registryPath());
+    QDir().mkpath(info.absolutePath());
 
-    QFile cFile(cachePath+mode+".json");
-    if(cFile.open(QIODevice::WriteOnly)){
-        cFile.write(jsonData);
-        cFile.close();
+    QSaveFile file(registryPath());
+    if(file.open(QIODevice::WriteOnly)){
+        file.write(QJsonDocument(registry).toJson(QJsonDocument::Compact));
+        file.commit();
     }
 }
 
-void Themer::updateScheme(const QByteArray& jsonData, const QString& outPath){
-    QFileInfo fileInfo(outPath);
-    QDir().mkpath(fileInfo.absolutePath());
+void Themer::registerWallpaper(const QByteArray &hash, const QString &wallpaper, uint32_t seedArgb){
+    QJsonObject registry = loadRegistry();
+    QJsonObject wallpapers = registry["wallpapers"].toObject();
+    QString hashStr = QString::fromUtf8(hash);
 
-    QSaveFile liveFile(outPath);
-    if(liveFile.open(QIODevice::WriteOnly)){
-        liveFile.write(jsonData);
-        if(!liveFile.commit()){
-            qWarning() << "Failed to commit updates to: " << outPath;
-        }
-    }
+    QJsonObject wallData;
+    wallData["filename"] = QFileInfo(wallpaper).fileName();
+    wallData["seed_argb"] = QString("0x%1").arg(seedArgb, 8, 16, QChar('0')).toUpper();
+    wallpapers[hashStr] = wallData;
+    registry["wallpapers"] = wallpapers;
+    saveRegistry(registry);
 }
 
 
-void Themer::updateMeta(const QByteArray& hash, const QString& path,const HCT& source){
-    QString ln = "user.wallpaper-path";
-    QString hashDir = QDir::homePath() + QString("/.cache/wallwatch/wallcache/%1/").arg(QString::fromUtf8(hash));
-    QString cmd = QString("setfattr -n user.wallpaper-path -v '%1' %2").arg(path.toStdString(), hashDir);
-    system(cmd.toUtf8().constData());
+bool Themer::applyFromCache(const QByteArray &hash, const QString &variant, bool isDark, const QString &schemePath){
+    QJsonObject registry = loadRegistry();
+    QJsonObject wallpapers = registry["wallpapers"].toObject();
+    QString hashStr = QString::fromUtf8(hash);
 
-    QVariantMap metadata;
-    metadata["hash"] = QString::fromUtf8(hash);
-    metadata["wallpaper_path"] = path;
-    metadata["creation_time"] = QDateTime::currentMSecsSinceEpoch();
-    metadata["dom_color"] = QString("#%1").arg(source.ToInt() & 0xFFFFFF, 6, 16, QChar('0')).toUpper();
-    metadata["preferred_theme"] = (source.get_tone() > 50 ? "dark":"light");
+    if(!wallpapers.contains(hashStr)) return false;
+    QJsonObject wallData = wallpapers[hashStr].toObject();
+    bool ok;
+    uint32_t seed = wallData["seed_argb"].toString().toUInt(&ok, 16);
+    if(!ok) return false;
 
-    QDBusInterface remoteModule("com.scoutd.daemon", "/Modules/wallwatch", "com.scoutd.daemon.Module", QDBusConnection::sessionBus());
-    if(remoteModule.isValid()){
-        remoteModule.call("saveMetadata", metadata);
-        qDebug() << "Metadata sent to scout daemon [WALLWATCH]";
-    }else{
-        qDebug() << "Daemon not found. FALL-BACK: LocalStorage";
-    }
-}
-
-
-QByteArray Themer::serialize(const DynamicScheme& newTheme, const QString& variantName, const QString& wallpaperPath, const QByteArray& hash){
     m_lastHash = hash;
+    std::unique_ptr<DynamicScheme> scheme;
+    material_color_utilities::Hct sourceHct(seed);
+    QString v = variant.toLower().trimmed();
+    if(v  == "vibrant") scheme = std::make_unique<SchemeVibrant>(sourceHct, isDark);
+    else if(v  == "tonal_spot") scheme = std::make_unique<SchemeTonalSpot>(sourceHct, isDark);
+    else if(v  == "fidelity") scheme = std::make_unique<SchemeFidelity>(sourceHct, isDark);
+    else if(v  == "neutral") scheme = std::make_unique<SchemeNeutral>(sourceHct, isDark);
+    else if(v  == "rainbow") scheme = std::make_unique<SchemeRainbow>(sourceHct, isDark);
+    else if(v  == "expressive") scheme = std::make_unique<SchemeExpressive>(sourceHct, isDark);
+    else if(v  == "fruit_salad") scheme = std::make_unique<SchemeFruitSalad>(sourceHct, isDark);
+    else if(v  == "monochrome") scheme = std::make_unique<SchemeMonochrome>(sourceHct, isDark);
+    else scheme = std::make_unique<SchemeContent>(sourceHct, isDark);
 
+    QJsonObject state;
+    state["current_hash"] = hashStr;
+    state["variant"] = v;
+    state["is_dark"] = isDark;
+
+    registry["state"] = state;
+    saveRegistry(registry);
+    updateScheme(*scheme, v, wallData["filename"].toString(), schemePath);
+    return true;
+}
+
+void Themer::updateScheme(const DynamicScheme &newTheme, const QString &variant, const QString &fileName, const QString &outPath){
     QJsonObject root;
     QJsonObject colors;
 
-    root["hash"] = QString::fromUtf8(hash);
-    root["variant"] = variantName;
-
-    QFileInfo wallInfo(wallpaperPath);
-    QString fileName = wallInfo.fileName();
+    root["hash"] = QString::fromUtf8(m_lastHash);
+    root["variant"] = variant;
     root["filename"] = fileName;
-
-    bool isDark = newTheme.is_dark;
-    root["theme"] = isDark ? "Dark Theme" : "Light theme";
+    root["theme"] = newTheme.is_dark ? "Dark Theme" : "Light Theme";
 
     auto hex = [](uint32_t argb) -> QString{
         return QString("#%1").arg(argb & 0xFFFFFF, 6, 16, QChar('0')).toUpper();
     };
 
-    Argb seed = newTheme.SourceColorArgb();
+    material_color_utilities::Argb seed = newTheme.SourceColorArgb();
+    bool isDark = newTheme.is_dark;
 
     // Core Palette Keys
     colors["primaryPaletteKeyColor"] = hex(newTheme.GetPrimaryPaletteKeyColor());
@@ -194,8 +173,16 @@ QByteArray Themer::serialize(const DynamicScheme& newTheme, const QString& varia
     colors["onWarningContainer"] = hex(warningPal.get(isDark ? 90 : 10));
 
     root["colors"] = colors;
-    QJsonDocument doc(root);
-    return doc.toJson(QJsonDocument::Indented);
+
+    QFileInfo fileInfo(outPath);
+    QDir().mkpath(fileInfo.absolutePath());
+    QSaveFile liveFile(outPath);
+    if(liveFile.open(QIODevice::WriteOnly)){
+        liveFile.write(QJsonDocument(root).toJson(QJsonDocument::Indented));
+        if(!liveFile.commit()){
+            qWarning() << "Failed to atomic-commit active sys-config out to: " << outPath;
+        }
+    }
 }
 
 }  //namespace wallwatch
